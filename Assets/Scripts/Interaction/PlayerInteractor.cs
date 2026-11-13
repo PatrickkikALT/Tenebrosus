@@ -11,6 +11,7 @@ public class PlayerInteractor : MonoBehaviour
     [SerializeField] private int slotCount = 3;
     [SerializeField] private float range = 2.5f;
     [SerializeField] private LayerMask mask = 1;
+    [SerializeField] private RenderingLayerMask lightLayer;
     [SerializeField] [Range(0f, 1f)] private float minPlaceNormalY = 0.7f;
     private bool _hasHit;
     private RaycastHit _hit;
@@ -115,8 +116,12 @@ public class PlayerInteractor : MonoBehaviour
         }
 
         carryable.PickUp(hand);
+        //ew
+        MeshRenderer[] renderers = carryable.GetComponentsInChildren<MeshRenderer>();
+        foreach (MeshRenderer renderer in renderers) renderer.renderingLayerMask = lightLayer;
         _slots[ActiveSlot] = carryable;
     }
+    
 
     private string BuildPrompt()
     {

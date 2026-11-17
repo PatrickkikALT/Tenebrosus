@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03403c30845cbf4e69a8d16b552099b7, type: 3}
   m_Name: Wight
   m_EditorClassIdentifier: Assembly-CSharp::GhostType
-  _ghostName: Wight
-  _description: The cold remains of someone who refuses to let go of what they owned
+  ghostName: Wight
+  description: The cold remains of someone who refuses to let go of what they owned
     in life.
-  _evidence: 7
-  _ritualSteps: 0300000001000000
+  evidence: 7
+  ritualSteps: 0300000001000000

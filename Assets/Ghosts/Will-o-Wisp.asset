@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03403c30845cbf4e69a8d16b552099b7, type: 3}
   m_Name: Will-o-Wisp
   m_EditorClassIdentifier: Assembly-CSharp::GhostType
-  _ghostName: Will-o'-Wisp
-  _description: A drifting light that lures the living deeper into the dark. It cannot
+  ghostName: Will-o'-Wisp
+  description: A drifting light that lures the living deeper into the dark. It cannot
     resist toying with what it finds.
-  _evidence: 41
-  _ritualSteps: 000000000400000001000000
+  evidence: 41
+  ritualSteps: 000000000400000001000000

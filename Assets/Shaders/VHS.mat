@@ -24,7 +24,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: VHS
-  m_Shader: {fileID: 4800000, guid: 54252023d83db97779cd7088efd92fa9, type: 3}
+  m_Shader: {fileID: 4800000, guid: 1476fabcf843add74af5bfb5099cfaf3, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -55,6 +55,7 @@ Material:
     - _Flash: 0
     - _Ghost: 0
     - _Invert: 0
+    - _MaskTolerance: 0.03
     - _Noise: 0.02
     - _NoiseLine: 0.2
     - _PixelRows: 321.5
@@ -62,7 +63,7 @@ Material:
     - _Scanline: 0.22
     - _Tear: 0.25
     - _Vignette: 0.55
-    - _Wobble: 0.0012
+    - _Wobble: 0.0006
     m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -1,4 +1,4 @@
-Shader "GoodDog/VHS"
+Shader "Tenebrosus/VHS"
 {
     Properties
     {
@@ -16,6 +16,7 @@ Shader "GoodDog/VHS"
         _Darken("Darken", Float) = 0
         _Flash("Flash", Float) = 0
         _NoiseLine("Noise Line", Float) = 0
+        _MaskTolerance("Mask Tolerance", Float) = 0.03
     }
 
     HLSLINCLUDE
@@ -39,6 +40,7 @@ Shader "GoodDog/VHS"
     float _Darken;
     float _Flash;
     float _NoiseLine;
+    float _MaskTolerance;
 
     float Hash12(float2 p)
     {
@@ -51,6 +53,15 @@ Shader "GoodDog/VHS"
     {
         uv = clamp(uv, 0.0, 0.999);
         return CustomPassSampleCustomColor(uv).rgb;
+    }
+
+    bool IsIgnored(uint2 pixel)
+    {
+        float maskDepth = LoadCustomDepth(pixel);
+        if (maskDepth <= 0.0)
+            return false;
+        float sceneDepth = LoadCameraDepth(pixel);
+        return abs(LinearEyeDepth(maskDepth, _ZBufferParams) - LinearEyeDepth(sceneDepth, _ZBufferParams)) < _MaskTolerance;
     }
 
     float4 CopyPass(Varyings varyings) : SV_Target
@@ -109,6 +120,9 @@ Shader "GoodDog/VHS"
         float noiseLine = step(0.996, Hash12(float2(row, floor(t * 24.0))));
         color += noiseLine * Hash12(float2(floor(uv.x * res.x * 0.25), row + t)) * _Noise * 5.0 * _NoiseLine;
         color += bandMask * _Tear * 0.06 * Hash12(float2(floor(uv.x * res.x), row + floor(t * 30.0))) * _NoiseLine;
+
+        if (IsIgnored((uint2)varyings.positionCS.xy))
+            color = Fetch(uv);
 
         float2 centered = uv - 0.5;
         centered.x *= _ScreenSize.x / _ScreenSize.y * 0.75;

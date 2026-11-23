@@ -25,9 +25,7 @@ public class Carryable : MonoBehaviour
         transform.SetParent(null, true);
         transform.SetPositionAndRotation(surfacePoint + Vector3.up * restHeight, rotation);
         foreach (MeshRenderer meshRenderer in GetComponentsInChildren<MeshRenderer>())
-        {
             meshRenderer.renderingLayerMask = RenderingLayerMask.defaultRenderingLayerMask;
-        }
         collider.enabled = true;
     }
 }

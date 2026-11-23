@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
         if (!showDebug) return;
         debugText.text =
             $"{ghost.Type.GhostName} in {ghost.HauntedRoom.RoomName}, bound to {ghost.BoundObject.DisplayName}\n" +
-            $"Anger {ghost.Anger:0}   Ritual {ghost.RitualProgress}/{ghost.Type.RitualSteps.Length}   Hunting {ghost.IsHunting}";
+            $"Sanity {ghost.PlayerSanity:0}   Ritual {ghost.RitualProgress}/{ghost.Type.RitualSteps.Length}   Hunting {ghost.IsHunting}";
     }
 
     public void Win(string ghostName, string objectName)

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public abstract class Tool : Carryable
 {
     public bool IsOn { get; private set; }

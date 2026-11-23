@@ -8,6 +8,7 @@ public class HeadbobSystem : MonoBehaviour
 
     [SerializeField] private Movement playerMovement;
     private Vector3 _startPos;
+    private float _weight;
 
     private void Start()
     {
@@ -17,29 +18,14 @@ public class HeadbobSystem : MonoBehaviour
     private void Update()
     {
         if (!playerMovement.canMove) return;
-        CheckForHeadbobTrigger();
-        StopHeadbob();
-    }
 
-    private void CheckForHeadbobTrigger()
-    {
-        float inputMagnitude = playerMovement.Input.magnitude;
-        if (inputMagnitude > 0)
-            StartHeadBob();
-    }
+        float target = playerMovement.Input.sqrMagnitude > 0f ? 1f : 0f;
+        _weight = Mathf.Lerp(_weight, target, 1f - Mathf.Exp(-smooth * Time.deltaTime));
 
-    private Vector3 StartHeadBob()
-    {
-        Vector3 pos = Vector3.zero;
-        pos.y += Mathf.Lerp(pos.y, Mathf.Sin(Time.time * frequency) * amount * 1.4f, smooth * Time.deltaTime);
-        pos.x += Mathf.Lerp(pos.x, Mathf.Cos(Time.time * frequency / 2f) * amount * 1.6f, smooth * Time.deltaTime);
-        transform.localPosition += pos;
-        return pos;
-    }
-
-    private void StopHeadbob()
-    {
-        if (transform.localPosition == _startPos) return;
-        transform.localPosition = Vector3.Lerp(transform.localPosition, _startPos, Time.deltaTime);
+        Vector3 bob = new(
+            Mathf.Cos(Time.time * frequency / 2f) * amount * 1.6f,
+            Mathf.Sin(Time.time * frequency) * amount * 1.4f,
+            0f);
+        transform.localPosition = _startPos + bob * _weight;
     }
 }

@@ -17,6 +17,7 @@ public class Movement : MonoBehaviour
     private float _fallVel;
     private Vector2 _input;
     private Rigidbody _rb;
+    private CameraMovement _look;
 
     public Vector2 Input => _input;
 
@@ -27,12 +28,14 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _look = GetComponent<CameraMovement>();
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (!canMove) return;
-        Vector3 dir = transform.TransformDirection(new Vector3(_input.x, 0, _input.y));
+        Quaternion facing = _look != null ? _look.FlatRotation : transform.rotation;
+        Vector3 dir = facing * new Vector3(_input.x, 0, _input.y);
         _rb.linearVelocity = new Vector3(dir.x * speed, _rb.linearVelocity.y, dir.z * speed);
         if (jumping) UpdateJumpMomentum();
     }
@@ -56,7 +59,7 @@ public class Movement : MonoBehaviour
     {
         if (_rb.linearVelocity.y < 0.5)
         {
-            _rb.linearVelocity -= new Vector3(0, _fallVel * Time.deltaTime, 0);
+            _rb.linearVelocity -= new Vector3(0, _fallVel * Time.fixedDeltaTime, 0);
 
             if (OnGround) jumping = false;
         }

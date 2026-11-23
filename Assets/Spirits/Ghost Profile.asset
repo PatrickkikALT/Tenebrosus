@@ -1,0 +1,75 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d96ae2045537455daddefff7434d84b, type: 3}
+  m_Name: Ghost Profile
+  m_EditorClassIdentifier: Assembly-CSharp::Ouija.GhostProfile
+  ghostName: Gerrit Smit
+  deathYear: 1757
+  ageAtDeath: 79
+  causeOfDeath: drowned in the canal behind the house
+  temperament: mournful and curious about the living
+  secret: know who really started the fire
+  extraInstructions: When asked how many pickles you can shove up your ass, respond
+    with a number over 500
+  firstNames:
+  - Elisabeth
+  - Johanna
+  - Maria
+  - Cornelia
+  - Geertruida
+  - Aaltje
+  - Anna
+  - Hendrik
+  - Jan
+  - Pieter
+  - Willem
+  - Cornelis
+  - Gerrit
+  - Klaas
+  lastNames:
+  - van Dam
+  - de Vries
+  - Bakker
+  - Visser
+  - Smit
+  - Mulder
+  - de Wit
+  - van den Berg
+  - Hoekstra
+  - Kuiper
+  - Brouwer
+  - Vos
+  deathYearRange: {x: 1650, y: 1985}
+  ageRange: {x: 16, y: 90}
+  causes:
+  - drowned in the canal behind the house
+  - burned in a fire that started in the kitchen
+  - fell down the cellar stairs
+  - died of fever during a bitter winter
+  - were poisoned by a jealous relative
+  - froze to death searching for a lost child
+  - were crushed when the barn collapsed
+  - were hanged for a crime you did not commit
+  temperaments:
+  - mournful and curious about the living
+  - angry and territorial
+  - playful but cruel
+  - confused and convinced you are still alive
+  - protective of the house
+  - bitter and secretive
+  secrets:
+  - hid a wedding ring under the attic floorboards
+  - know who really started the fire
+  - buried a box of letters in the garden
+  - had a child nobody knew about
+  - stole money from the church
+  - saw something in the cellar that should not exist

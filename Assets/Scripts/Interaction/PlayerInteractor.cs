@@ -76,7 +76,8 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
-        if (_hit.collider.TryGetComponent(out Carryable carryable))
+        Carryable carryable = _hit.collider.GetComponentInParent<Carryable>();
+        if (carryable != null)
         {
             PickUp(carryable);
             return;
@@ -130,7 +131,8 @@ public class PlayerInteractor : MonoBehaviour
             return lightSwitch.Prompt;
         if (_hit.collider.TryGetComponent(out HeadCamera headCamera))
             return $"[E] Wear {headCamera.DisplayName}";
-        if (_hit.collider.TryGetComponent(out Carryable carryable))
+        Carryable carryable = _hit.collider.GetComponentInParent<Carryable>();
+        if (carryable != null)
             return Held == null || HasEmptySlot
                 ? $"[E] Pick up {carryable.DisplayName}"
                 : $"[E] Swap for {carryable.DisplayName}";

@@ -53,7 +53,6 @@ public class Hud : MonoBehaviour
                 _builder.Append(slotName);
         }
 
-        _builder.Append("\nFlashlight: ").Append(flashlight.IsOn ? "On" : "Off");
         if (headCamera.IsWorn)
             _builder.Append("     ").Append(headCamera.Status);
         statusText.text = _builder.ToString();

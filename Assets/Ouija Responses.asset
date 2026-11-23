@@ -1,0 +1,924 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24740307a51984eea8dd8a22e46ad189, type: 3}
+  m_Name: Ouija Responses
+  m_EditorClassIdentifier: Assembly-CSharp::Ouija.OuijaResponseSet
+  silenceChance: 0.05
+  stutterChance: 0.07
+  repeatRemarkChance: 0.6
+  repeatAnger: 0.1
+  angerDecayPerMinute: 0.15
+  angryThreshold: 0.5
+  leaveThreshold: 1
+  insanityAnger: 0.3
+  secretAfterQuestions: 4
+  maxFollowUpWords: 3
+  recentLineMemory: 8
+  unpromptedDelay: {x: 25, y: 60}
+  unpromptedChance: 0.5
+  unpromptedLines:
+  - HELP
+  - COLD
+  - I SEE YOU
+  - '{FIRST}'
+  - BEHIND YOU
+  - STILL HERE
+  - '{MEMORY}'
+  - LISTEN
+  - DO NOT GO
+  unknownLines:
+  - 
+  - WHAT
+  - SPEAK CLEARLY
+  - COLD
+  - LISTEN
+  - I DO NOT KNOW
+  - HELP
+  - ASK AGAIN
+  angryLines:
+  - GET OUT
+  - LEAVE
+  - ENOUGH
+  - STOP
+  - MY HOUSE
+  departLines:
+  - GOODBYE
+  - ENOUGH GOODBYE
+  - NO MORE GOODBYE
+  followUpWords:
+  - why
+  - how
+  - what
+  - really
+  - more
+  - explain
+  - meaning
+  - mean
+  stopWords:
+  - a
+  - an
+  - the
+  - and
+  - or
+  - of
+  - to
+  - in
+  - on
+  - at
+  - by
+  - for
+  - with
+  - under
+  - into
+  - behind
+  - that
+  - who
+  - was
+  - were
+  - is
+  - it
+  - his
+  - her
+  - my
+  - your
+  - you
+  - i
+  - me
+  - nobody
+  - knew
+  - about
+  - there
+  - this
+  - from
+  - when
+  swaps:
+  - from: weegee
+    to: ouija
+  - from: wigi
+    to: ouija
+  - from: wheres
+    to: where is
+  - from: whats
+    to: what is
+  - from: whos
+    to: who is
+  - from: im
+    to: i am
+  - from: youre
+    to: you are
+  - from: dont
+    to: do not
+  - from: didnt
+    to: did not
+  - from: doesnt
+    to: does not
+  - from: cant
+    to: can not
+  - from: cannot
+    to: can not
+  - from: theres
+    to: there is
+  - from: u
+    to: you
+  - from: ur
+    to: your
+  - from: ya
+    to: you
+  - from: wanna
+    to: want to
+  - from: gonna
+    to: going to
+  - from: hows
+    to: how is
+  - from: allo
+    to: hello
+  causeWords:
+  - from: drown
+    to: WATER
+  - from: burn
+    to: FIRE
+  - from: fire
+    to: FIRE
+  - from: fell
+    to: FELL
+  - from: stairs
+    to: STAIRS
+  - from: fever
+    to: FEVER
+  - from: poison
+    to: POISON
+  - from: froze
+    to: COLD
+  - from: freez
+    to: COLD
+  - from: crush
+    to: CRUSHED
+  - from: hang
+    to: ROPE
+  - from: stab
+    to: KNIFE
+  - from: shot
+    to: BULLET
+  - from: murder
+    to: MURDER
+  - from: kill
+    to: MURDER
+  intents:
+  - name: Greeting
+    triggers:
+    - hello
+    - hi
+    - hey
+    - greetings
+    - anyone
+    - anybody
+    - someone
+    - is anyone here
+    - is anybody there
+    - are you there
+    - can you hear
+    - is someone
+    - speak to us
+    - talk to us
+    - present
+    startWords: []
+    minScore: 1
+    priority: 0
+    lines:
+    - HELLO
+    - I AM HERE
+    - YES
+    - WHO CALLS
+    - I HEAR YOU
+    - HELLO
+    moodLines:
+    - temperament: angry
+      lines:
+      - WHAT
+      - GO AWAY
+      - YOU AGAIN
+    - temperament: playful
+      lines:
+      - HELLO HELLO
+      - PLAY WITH ME
+      - HI
+    - temperament: confused
+      lines:
+      - WHO IS THERE
+      - MOTHER
+    - temperament: mournful
+      lines:
+      - HELLO FRIEND
+      - FINALLY
+    - temperament: bitter
+      lines:
+      - WHAT DO YOU WANT
+    angryLines: []
+    repeatLines:
+    - I AM HERE
+    - STILL HERE
+    - YES YES
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Name
+    triggers:
+    - name
+    - called
+    - who are you
+    - who is this
+    - who is there
+    - who am i speaking
+    - who are we
+    - identify
+    - spell your
+    startWords: []
+    minScore: 1
+    priority: 1
+    lines:
+    - '{NAME}'
+    - '{FIRST}'
+    - MY NAME IS {FIRST}
+    - '{FIRST} {LAST}'
+    - '{FIRST}'
+    moodLines:
+    - temperament: angry
+      lines:
+      - NOT YOURS TO KNOW
+      - '{LAST}'
+    - temperament: confused
+      lines:
+      - I FORGET
+      - '{FIRST} I THINK'
+    - temperament: bitter
+      lines:
+      - '{LAST}'
+      - WHY
+    angryLines:
+    - NO
+    - NOT YOURS
+    repeatLines:
+    - I TOLD YOU
+    - '{FIRST} I SAID'
+    - ALREADY SAID
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Age
+    triggers:
+    - old
+    - age
+    - how old
+    - young
+    - years old
+    - birthday
+    - born
+    startWords: []
+    minScore: 1
+    priority: 1
+    lines:
+    - '{AGE}'
+    - '{AGE} YEARS'
+    - I WAS {AGE}
+    moodLines:
+    - temperament: confused
+      lines:
+      - '{AGE} I THINK'
+      - I FORGET
+    angryLines: []
+    repeatLines:
+    - I TOLD YOU
+    - '{AGE} I SAID'
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Year
+    triggers:
+    - when
+    - year
+    - what year
+    - century
+    - how long
+    - long ago
+    - date
+    startWords: []
+    minScore: 1
+    priority: 2
+    lines:
+    - '{YEAR}'
+    - IN {YEAR}
+    - LONG AGO
+    - '{YEAR}'
+    moodLines:
+    - temperament: confused
+      lines:
+      - WHAT YEAR IS IT
+      - TODAY
+    - temperament: mournful
+      lines:
+      - SO LONG AGO
+      - '{YEAR}'
+    angryLines: []
+    repeatLines:
+    - I TOLD YOU
+    - '{YEAR} I SAID'
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Cause
+    triggers:
+    - die
+    - died
+    - death
+    - dead
+    - kill
+    - killed
+    - murder
+    - murdered
+    - how did you die
+    - what happened
+    - happened
+    - cause
+    - end
+    - accident
+    startWords: []
+    minScore: 1
+    priority: 0
+    lines:
+    - '{CAUSE}'
+    - '{CAUSE} TOOK ME'
+    - IT WAS {CAUSE}
+    - REMEMBER {CAUSE}
+    moodLines:
+    - temperament: angry
+      lines:
+      - DO NOT ASK
+      - '{CAUSE}'
+    - temperament: mournful
+      lines:
+      - '{CAUSE} ALWAYS {CAUSE}'
+      - IT HURT
+    - temperament: confused
+      lines:
+      - I AM NOT DEAD
+      - DEAD
+    angryLines: []
+    repeatLines:
+    - '{CAUSE} I SAID'
+    - STOP ASKING
+    fallbackLines: []
+    anger: 0.05
+    sanityCost: 1
+  - name: Object
+    triggers:
+    - object
+    - thing
+    - item
+    - bound
+    - tied
+    - attached
+    - belong
+    - belongs
+    - haunt
+    - haunting
+    - find
+    - search
+    - remember
+    - memory
+    - possess
+    - possessing
+    - anchor
+    - what are you bound to
+    - what do you haunt
+    - where should we look
+    - what is it
+    - describe
+    - clue
+    - hint
+    startWords: []
+    minScore: 1
+    priority: 1
+    lines:
+    - '{MEMORY}'
+    - '{MEMORY}'
+    - '{MEMORY}'
+    - REMEMBER {MEMORY}
+    moodLines:
+    - temperament: angry
+      lines:
+      - FIND IT YOURSELF
+      - '{MEMORY}'
+    - temperament: playful
+      lines:
+      - WARMER
+      - '{MEMORY}'
+    angryLines: []
+    repeatLines: []
+    fallbackLines:
+    - I CANNOT REMEMBER
+    - I FORGET
+    - TOO DARK
+    - KEEP TALKING
+    anger: 0
+    sanityCost: 0
+  - name: Guess
+    triggers:
+    - is it
+    - is it the
+    - is this
+    - is that
+    - am i close
+    - getting closer
+    - this one
+    - that one
+    - the one
+    - is it in
+    - is it near
+    startWords:
+    - is
+    - am
+    - are
+    - could
+    - would
+    - does
+    - maybe
+    minScore: 2.5
+    priority: 3
+    lines:
+    - I CANNOT RECALL
+    - MAYBE
+    - '{MEMORY}'
+    - I DO NOT KNOW
+    - PERHAPS
+    - LOOK CLOSER
+    moodLines:
+    - temperament: playful
+      lines:
+      - WARMER
+      - COLDER
+      - HAHA
+    - temperament: angry
+      lines:
+      - FIND IT
+      - WRONG
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Secret
+    triggers:
+    - secret
+    - hide
+    - hid
+    - hidden
+    - hiding
+    - confess
+    - truth
+    - lie
+    - lying
+    - regret
+    - guilt
+    - sin
+    - what are you hiding
+    - tell me the truth
+    startWords: []
+    minScore: 1
+    priority: 1
+    lines:
+    - '{SECRET}'
+    - '{SECRET}'
+    - NEVER TELL
+    - '{SECRET}'
+    moodLines:
+    - temperament: bitter
+      lines:
+      - NEVER
+      - '{SECRET}'
+    - temperament: playful
+      lines:
+      - GUESS
+      - '{SECRET}'
+    angryLines: []
+    repeatLines: []
+    fallbackLines:
+    - NOT YET
+    - I CANNOT SAY
+    - LATER
+    - NO
+    anger: 0
+    sanityCost: 0
+  - name: Want
+    triggers:
+    - want
+    - need
+    - stay
+    - purpose
+    - rest
+    - peace
+    - help
+    - why are you here
+    - what do you want
+    - how can we help
+    - free
+    - move on
+    startWords: []
+    minScore: 1
+    priority: 0
+    lines:
+    - REST
+    - PEACE
+    - FIND IT
+    - HELP ME
+    - LET ME GO
+    moodLines:
+    - temperament: angry
+      lines:
+      - GET OUT
+      - YOU GONE
+    - temperament: mournful
+      lines:
+      - I WANT TO REST
+      - SO TIRED
+    - temperament: playful
+      lines:
+      - PLAY
+      - GAMES
+    - temperament: protective
+      lines:
+      - PROTECT HOUSE
+      - KEEP AWAY
+    - temperament: confused
+      lines:
+      - GO HOME
+      - WHERE AM I
+    - temperament: bitter
+      lines:
+      - JUSTICE
+      - THEM
+    angryLines: []
+    repeatLines:
+    - I TOLD YOU
+    - LISTEN
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Location
+    triggers:
+    - where
+    - room
+    - location
+    - place
+    - where are you
+    - upstairs
+    - downstairs
+    - basement
+    - attic
+    - kitchen
+    - near
+    - close
+    startWords: []
+    minScore: 1
+    priority: 0
+    lines:
+    - HERE
+    - CLOSE
+    - NEAR YOU
+    - BEHIND YOU
+    - IN THE WALLS
+    - WATCHING
+    moodLines:
+    - temperament: playful
+      lines:
+      - FIND ME
+      - HIDE AND SEEK
+    - temperament: confused
+      lines:
+      - I DO NOT KNOW
+      - DARK
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0.5
+  - name: Sign
+    triggers:
+    - sign
+    - show
+    - appear
+    - prove
+    - knock
+    - move
+    - touch
+    - do something
+    - show yourself
+    - give us a sign
+    - make a noise
+    - visible
+    startWords: []
+    minScore: 1
+    priority: 1
+    lines:
+    - WATCH
+    - NOT YET
+    - LOOK BEHIND YOU
+    - SOON
+    - ARE YOU SURE
+    moodLines:
+    - temperament: playful
+      lines:
+      - BOO
+      - HAHA
+    - temperament: angry
+      lines:
+      - YOU WILL SEE
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0.05
+    sanityCost: 2
+  - name: Others
+    triggers:
+    - how many
+    - alone
+    - others
+    - other
+    - family
+    - children
+    - child
+    - wife
+    - husband
+    - mother
+    - father
+    - friends
+    - spirits
+    startWords: []
+    minScore: 1
+    priority: 0
+    lines:
+    - ALONE
+    - NOT ALONE
+    - THEY WATCH TOO
+    - MANY
+    - GONE
+    moodLines:
+    - temperament: mournful
+      lines:
+      - ALL GONE
+      - MISS THEM
+    - temperament: confused
+      lines:
+      - WHERE ARE THEY
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Fate
+    triggers:
+    - will i die
+    - am i going to die
+    - are we going to die
+    - will we die
+    - future
+    - fate
+    - hurt me
+    - hurt us
+    - safe
+    - danger
+    - kill me
+    - kill us
+    startWords: []
+    minScore: 2
+    priority: 4
+    lines:
+    - SOON
+    - NOT TODAY
+    - IF YOU STAY
+    - WHO KNOWS
+    - YES
+    moodLines:
+    - temperament: protective
+      lines:
+      - LEAVE AND LIVE
+      - NOT IF YOU GO
+    - temperament: playful
+      lines:
+      - MAYBE
+      - HAHA
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0.05
+    sanityCost: 2
+  - name: Alive
+    triggers:
+    - are you dead
+    - you are dead
+    - alive
+    - ghost
+    - spirit
+    - demon
+    - human
+    - real
+    startWords: []
+    minScore: 1
+    priority: 2
+    lines:
+    - YES
+    - DEAD
+    - DEAD SINCE {YEAR}
+    - ONCE
+    moodLines:
+    - temperament: confused
+      lines:
+      - I AM NOT DEAD
+      - ALIVE
+      - WHAT
+    - temperament: mournful
+      lines:
+      - DEAD
+      - LONG DEAD
+    - temperament: angry
+      lines:
+      - DEMON
+      - WORSE
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Insult
+    triggers:
+    - fuck
+    - fucking
+    - shit
+    - stupid
+    - idiot
+    - hate
+    - ugly
+    - dumb
+    - loser
+    - bitch
+    - shut up
+    - go away
+    - leave us alone
+    - get out
+    - destroy
+    - exorcise
+    - banish
+    - kill you
+    - not real
+    - fake
+    - scared of you
+    - boring
+    startWords: []
+    minScore: 1
+    priority: 5
+    lines:
+    - NO
+    - MY HOUSE
+    - YOU WILL PAY
+    - LEAVE NOW
+    - CAREFUL
+    - HOW DARE YOU
+    moodLines:
+    - temperament: playful
+      lines:
+      - HAHA
+      - MAKE ME
+    - temperament: mournful
+      lines:
+      - WHY
+      - CRUEL
+    angryLines:
+    - YOU WILL PAY
+    - DIE
+    - GET OUT
+    - RUN
+    repeatLines: []
+    fallbackLines: []
+    anger: 0.35
+    sanityCost: 3
+  - name: Kind
+    triggers:
+    - thank
+    - thanks
+    - sorry
+    - love
+    - friend
+    - kind
+    - please
+    - nice
+    - beautiful
+    - forgive
+    - sorry for your loss
+    startWords: []
+    minScore: 1
+    priority: 0
+    lines:
+    - THANK YOU
+    - YES
+    - KIND
+    - STAY
+    moodLines:
+    - temperament: angry
+      lines:
+      - LIAR
+      - NO
+    - temperament: mournful
+      lines:
+      - THANK YOU
+      - FRIEND
+    - temperament: bitter
+      lines:
+      - WORDS
+      - LIAR
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: -0.2
+    sanityCost: 0
+  - name: YesNo
+    triggers: []
+    startWords:
+    - is
+    - are
+    - am
+    - do
+    - does
+    - did
+    - can
+    - could
+    - will
+    - would
+    - was
+    - were
+    - have
+    - has
+    - had
+    - should
+    - shall
+    minScore: 0.5
+    priority: -1
+    lines:
+    - YES
+    - YES
+    - NO
+    - NO
+    - MAYBE
+    moodLines:
+    - temperament: angry
+      lines:
+      - NO
+      - NO
+      - YES
+    - temperament: playful
+      lines:
+      - MAYBE
+      - YES
+      - NO
+      - PERHAPS
+    - temperament: confused
+      lines:
+      - I DO NOT KNOW
+      - MAYBE
+    - temperament: bitter
+      lines:
+      - NO
+      - NEVER
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0
+  - name: Pickles
+    triggers:
+    - Pickles
+    - Butt
+    - Ass
+    startWords:
+    - how
+    minScore: 0.5
+    priority: -1
+    lines:
+    - 347
+    - 8
+    - 67
+    - KILL YOURSELF
+    - 48762
+    moodLines: []
+    angryLines: []
+    repeatLines: []
+    fallbackLines: []
+    anger: 0
+    sanityCost: 0

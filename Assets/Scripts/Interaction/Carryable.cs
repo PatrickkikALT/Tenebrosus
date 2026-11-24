@@ -24,8 +24,14 @@ public class Carryable : MonoBehaviour
         IsHeld = false;
         transform.SetParent(null, true);
         transform.SetPositionAndRotation(surfacePoint + Vector3.up * restHeight, rotation);
-        foreach (MeshRenderer meshRenderer in GetComponentsInChildren<MeshRenderer>())
+        foreach (MeshRenderer meshRenderer in GetComponentsInChildren<MeshRenderer>(true))
             meshRenderer.renderingLayerMask = RenderingLayerMask.defaultRenderingLayerMask;
         collider.enabled = true;
+    }
+
+    public void Consume(Vector3 surfacePoint)
+    {
+        Place(surfacePoint, Quaternion.Euler(0f, transform.eulerAngles.y, 0f));
+        collider.enabled = false;
     }
 }

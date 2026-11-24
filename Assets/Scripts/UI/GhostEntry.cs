@@ -23,9 +23,8 @@ public class GhostEntry : MonoBehaviour
         nameText.text = possible ? ghostType.GhostName : $"<s>{ghostType.GhostName}</s>";
         evidenceText.text = string.Join("   ·   ",
             EvidenceNames.All.Where(ghostType.Has).Select(evidence => FormatEvidence(evidence, found, ruledOut)));
-        descriptionText.text = ghostType.Description;
-        ritualText.text = "<b>Ritual</b>    " + string.Join("     ",
-            ghostType.RitualSteps.Select((step, index) => $"{index + 1}. {RitualItemNames.Get(step)}"));
+        descriptionText.text = $"{ghostType.Description}\n<i>Tell: {ghostType.Tell}</i>";
+        ritualText.text = "<b>Ritual</b>    See <i>Exorcism Ghosts for Dummies</i>";
         return possible;
     }
 

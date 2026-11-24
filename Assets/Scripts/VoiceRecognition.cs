@@ -74,6 +74,12 @@ public class VoiceRecognition : MonoBehaviour
     public event Action<string> TextRecognized;
     public event Action<string[]> WordsRecognized;
 
+    public string Language
+    {
+        get => language;
+        set => language = value;
+    }
+
     public bool IsReady => _whisper != null;
     public bool IsSpeaking { get; private set; }
     public bool IsProcessing => _transcription != null || _pending.Count > 0;

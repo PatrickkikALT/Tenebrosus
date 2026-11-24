@@ -55,6 +55,8 @@ public class Hud : MonoBehaviour
 
         if (headCamera.IsWorn)
             _builder.Append("     ").Append(headCamera.Status);
+        if (interactor.Book != null)
+            _builder.Append("     ").Append(interactor.Book.Hint);
         statusText.text = _builder.ToString();
 
         _messages.RemoveAll(message => Time.time > message.until);

@@ -6,8 +6,9 @@ public class PlayerInteractor : MonoBehaviour
 {
     [SerializeField] private Transform camera;
     [SerializeField] private Transform hand;
+    [SerializeField] private Transform offHand;
     [SerializeField] private Movement movement;
-    [SerializeField] private GhostController ghost;
+    [SerializeField] private RitualController ritual;
     [SerializeField] private int slotCount = 3;
     [SerializeField] private float range = 2.5f;
     [SerializeField] private LayerMask mask = 1;
@@ -22,6 +23,7 @@ public class PlayerInteractor : MonoBehaviour
     public int ActiveSlot { get; private set; }
     public Carryable Held => _slots[ActiveSlot];
     public string Prompt { get; private set; } = "";
+    public ExorcismBook Book { get; private set; }
 
     private bool HasEmptySlot => Array.IndexOf(_slots, null) >= 0;
 
@@ -76,7 +78,22 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
+        if (_hit.collider.TryGetComponent(out SacrificeAltar altar))
+        {
+            if (Held is RitualItem offering && altar.Offer(offering))
+                _slots[ActiveSlot] = null;
+            return;
+        }
+
         Carryable carryable = _hit.collider.GetComponentInParent<Carryable>();
+        if (carryable is ExorcismBook book)
+        {
+            book.PickUp(offHand);
+            SetHeldLayer(book);
+            Book = book;
+            return;
+        }
+
         if (carryable != null)
         {
             PickUp(carryable);
@@ -85,16 +102,22 @@ public class PlayerInteractor : MonoBehaviour
 
         if (_hit.collider.TryGetComponent(out HauntableObject hauntable))
         {
-            if (Held is RitualItem ritualItem)
-                ghost.ApplyRitualItem(hauntable, ritualItem.ItemType);
+            if (Book != null) ritual.Begin(hauntable);
             return;
         }
 
-        if (Held != null && _hit.normal.y >= minPlaceNormalY)
+        if (_hit.normal.y < minPlaceNormalY) return;
+        Quaternion facing = Quaternion.Euler(0f, camera.eulerAngles.y, 0f);
+        if (Held != null)
         {
-            Held.Place(_hit.point, Quaternion.Euler(0f, camera.eulerAngles.y, 0f));
+            Held.Place(_hit.point, facing);
             _slots[ActiveSlot] = null;
+            return;
         }
+
+        if (Book == null) return;
+        Book.Place(_hit.point, facing);
+        Book = null;
     }
 
     private void SelectSlot(int index)
@@ -118,9 +141,14 @@ public class PlayerInteractor : MonoBehaviour
 
         carryable.PickUp(hand);
         //ew
-        MeshRenderer[] renderers = carryable.GetComponentsInChildren<MeshRenderer>();
-        foreach (MeshRenderer renderer in renderers) renderer.renderingLayerMask = lightLayer;
+        SetHeldLayer(carryable);
         _slots[ActiveSlot] = carryable;
+    }
+
+    private void SetHeldLayer(Carryable carryable)
+    {
+        MeshRenderer[] renderers = carryable.GetComponentsInChildren<MeshRenderer>(true);
+        foreach (MeshRenderer renderer in renderers) renderer.renderingLayerMask = lightLayer;
     }
     
 
@@ -131,17 +159,21 @@ public class PlayerInteractor : MonoBehaviour
             return lightSwitch.Prompt;
         if (_hit.collider.TryGetComponent(out HeadCamera headCamera))
             return $"[E] Wear {headCamera.DisplayName}";
+        if (_hit.collider.TryGetComponent(out SacrificeAltar altar))
+            return altar.Prompt(Held);
         Carryable carryable = _hit.collider.GetComponentInParent<Carryable>();
+        if (carryable is ExorcismBook)
+            return $"[E] Pick up {carryable.DisplayName}";
         if (carryable != null)
             return Held == null || HasEmptySlot
                 ? $"[E] Pick up {carryable.DisplayName}"
                 : $"[E] Swap for {carryable.DisplayName}";
         if (_hit.collider.TryGetComponent(out HauntableObject hauntable))
-            return Held is RitualItem ritualItem
-                ? $"[E] Use {ritualItem.DisplayName} on {hauntable.DisplayName}"
+            return Book != null && !ritual.IsActive
+                ? $"[E] Begin the exorcism at the {hauntable.DisplayName}"
                 : hauntable.DisplayName;
-        if (Held != null && _hit.normal.y >= minPlaceNormalY)
-            return $"[E] Place {Held.DisplayName}";
-        return "";
+        if (_hit.normal.y < minPlaceNormalY) return "";
+        if (Held != null) return $"[E] Place {Held.DisplayName}";
+        return Book != null ? $"[E] Put down {Book.DisplayName}" : "";
     }
 }

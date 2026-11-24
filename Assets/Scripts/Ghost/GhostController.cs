@@ -15,6 +15,7 @@ public class GhostController : MonoBehaviour
     [SerializeField] private Hud hud;
     [SerializeField] private HeadCamera headCamera;
     [SerializeField] private Sanity sanity;
+    [SerializeField] private AudioSource tellSource;
 
     [Header("Ghost Orbs")] [SerializeField]
     private Renderer[] orbs;
@@ -36,7 +37,9 @@ public class GhostController : MonoBehaviour
 
     [Header("Sanity")] [SerializeField] private float activitySanityLoss = 3f;
 
-    [SerializeField] private float wrongRitualSanityLoss = 15f;
+    [Header("Rage")] [SerializeField] [Range(0f, 1f)] private float rageInsanity = 0.35f;
+
+    [SerializeField] private float rageHuntSanity = 25f;
 
     [Header("Hunt")] [SerializeField] private float huntSanity = 40f;
 
@@ -64,12 +67,14 @@ public class GhostController : MonoBehaviour
     private float _nextWanderTime;
 
     private Vector3 _wanderTarget;
+    private bool _exorcising;
+    private float _nextAmbientTime;
+    private int _rage;
 
     public GhostType Type { get; private set; }
     public Room HauntedRoom { get; private set; }
     public HauntableObject BoundObject { get; private set; }
     public float PlayerSanity => sanity.Value;
-    public int RitualProgress { get; private set; }
     public bool IsHunting { get; private set; }
     public bool IsBanished { get; private set; }
 
@@ -85,12 +90,13 @@ public class GhostController : MonoBehaviour
         _wanderTarget = transform.position;
         visual.enabled = false;
         ScheduleActivity();
+        ScheduleAmbient();
     }
 
     private void Update()
     {
         UpdateOrbs();
-        if (IsBanished || !gameManager.IsPlaying) return;
+        if (IsBanished || _exorcising || !gameManager.IsPlaying) return;
         if (IsHunting)
         {
             Chase();
@@ -98,9 +104,12 @@ public class GhostController : MonoBehaviour
         }
 
         Wander();
+        PlayAmbient();
         if (Time.time < _nextActivityTime) return;
         if (ShouldHunt())
             StartCoroutine(Hunt());
+        else if (Type.OmenClip != null)
+            StartCoroutine(OmenThenAct());
         else
             DoActivity();
         ScheduleActivity();
@@ -138,7 +147,8 @@ public class GhostController : MonoBehaviour
         response = null;
         if (IsBanished || !Type.Has(EvidenceType.Evp) || !HauntedRoom.Contains(position) || Random.value > evpChance)
             return false;
-        response = evpResponses[Random.Range(0, evpResponses.Length)];
+        string[] responses = Type.EvpResponses.Length > 0 ? Type.EvpResponses : evpResponses;
+        response = responses[Random.Range(0, responses.Length)];
         return true;
     }
 
@@ -148,41 +158,32 @@ public class GhostController : MonoBehaviour
                Vector3.Distance(transform.position, position) < remPodRange;
     }
 
-    public void ApplyRitualItem(HauntableObject target, RitualItemType item)
+    public void RitualBacklash(float sanityLoss)
     {
         if (IsBanished) return;
-        string itemName = RitualItemNames.Get(item);
-        if (target != BoundObject)
-        {
-            hud.ShowMessage(
-                $"You use the {itemName} on the {target.DisplayName}. Nothing happens... but something stirs.", 4f);
-            sanity.Drain(wrongRitualSanityLoss * 0.5f);
-            return;
-        }
+        StartCoroutine(Flicker(HauntedRoom, 2f));
+        if (Type.ThrowWeight > 0f) ThrowSomething();
+        LeaveEmf(BoundObject.transform.position);
+        sanity.Drain(sanityLoss);
+        _nextActivityTime = Time.time;
+    }
 
-        if (Type.RitualSteps[RitualProgress] != item)
-        {
-            RitualProgress = 0;
-            hud.ShowMessage($"The {itemName} sizzles and dies. The ritual is broken and the ghost is furious!", 4f);
-            StartCoroutine(Flicker(HauntedRoom, 2f));
-            LeaveEmf(target.transform.position);
-            sanity.Drain(wrongRitualSanityLoss);
-            _nextActivityTime = Time.time;
-            return;
-        }
+    public void Enrage(float sanityLoss)
+    {
+        _rage++;
+        RitualBacklash(sanityLoss);
+        _nextHuntTime = Time.time;
+    }
 
-        RitualProgress++;
-        if (RitualProgress >= Type.RitualSteps.Length)
-        {
-            Banish();
-            return;
-        }
-
-        hud.ShowMessage(
-            $"The {target.DisplayName} shudders as you use the {itemName}... ({RitualProgress}/{Type.RitualSteps.Length})",
-            4f);
-        StartCoroutine(Flicker(HauntedRoom, 1f));
-        LeaveEmf(target.transform.position);
+    public void BeginBanishment(Vector3 position)
+    {
+        StopAllCoroutines();
+        _exorcising = true;
+        IsHunting = false;
+        foreach (Room room in rooms)
+            room.RestoreLights();
+        transform.position = position;
+        visual.enabled = true;
     }
 
     private void Wander()
@@ -213,16 +214,40 @@ public class GhostController : MonoBehaviour
 
     private bool ShouldHunt()
     {
-        if (sanity.Value > huntSanity || Time.time < _nextHuntTime) return false;
-        return Random.value < Mathf.Lerp(maxHuntChance, 0f, sanity.Value / huntSanity);
+        float threshold = huntSanity + _rage * rageHuntSanity;
+        if (sanity.Value > threshold || Time.time < _nextHuntTime) return false;
+        return Random.value < Mathf.Lerp(maxHuntChance, 0f, sanity.Value / threshold);
     }
 
     private void ScheduleActivity()
     {
-        float insanity = sanity.Insanity;
+        float insanity = Mathf.Clamp01(sanity.Insanity + _rage * rageInsanity);
         float min = Mathf.Lerp(calmIntervalRange.x, frenziedIntervalRange.x, insanity);
         float max = Mathf.Lerp(calmIntervalRange.y, frenziedIntervalRange.y, insanity);
-        _nextActivityTime = Time.time + Random.Range(min, max);
+        _nextActivityTime = Time.time + Random.Range(min, max) / Type.ActivityRate;
+    }
+
+    private void ScheduleAmbient()
+    {
+        _nextAmbientTime = Time.time + Random.Range(Type.AmbientInterval.x, Type.AmbientInterval.y);
+    }
+
+    private void PlayAmbient()
+    {
+        if (Type.AmbientClip == null || Time.time < _nextAmbientTime) return;
+        tellSource.PlayOneShot(Type.AmbientClip);
+        ScheduleAmbient();
+    }
+
+    private IEnumerator OmenThenAct()
+    {
+        for (int i = 0; i < Type.OmenRepeats; i++)
+        {
+            tellSource.PlayOneShot(Type.OmenClip);
+            yield return new WaitForSeconds(Type.OmenInterval);
+        }
+
+        if (!IsHunting) DoActivity();
     }
 
     private void LeaveEmf(Vector3 position)
@@ -237,31 +262,26 @@ public class GhostController : MonoBehaviour
         if (HauntedRoom.Contains(player.position))
             sanity.Drain(activitySanityLoss);
         LeaveEmf(transform.position);
-        switch (Random.Range(0, 4))
-        {
-            case 0:
-                StartCoroutine(Flicker(HauntedRoom, 1.5f));
-                break;
-            case 1:
-                ThrowSomething();
-                break;
-            case 2:
-                if (HauntedRoom.LightsOn)
-                    HauntedRoom.SetLights(false);
-                else
-                    StartCoroutine(Flicker(HauntedRoom, 1.5f));
-                break;
-            default:
-                StartCoroutine(Glimpse());
-                break;
-        }
+        float roll = Random.value *
+                     (Type.FlickerWeight + Type.ThrowWeight + Type.LightsOffWeight + Type.GlimpseWeight);
+        if ((roll -= Type.FlickerWeight) < 0f)
+            StartCoroutine(Flicker(HauntedRoom, 1.5f));
+        else if ((roll -= Type.ThrowWeight) < 0f)
+            ThrowSomething();
+        else if ((roll -= Type.LightsOffWeight) < 0f && HauntedRoom.LightsOn)
+            HauntedRoom.SetLights(false);
+        else if (roll < 0f)
+            StartCoroutine(Flicker(HauntedRoom, 1.5f));
+        else
+            StartCoroutine(Glimpse());
     }
 
     private void ThrowSomething()
     {
         Rigidbody body = HauntedRoom.Throwables[Random.Range(0, HauntedRoom.Throwables.Length)];
-        body.AddForce((Random.insideUnitSphere + Vector3.up).normalized * throwForce, ForceMode.Impulse);
-        body.AddTorque(Random.insideUnitSphere * throwForce, ForceMode.Impulse);
+        float force = throwForce * Type.ThrowForceMultiplier;
+        body.AddForce((Random.insideUnitSphere + Vector3.up).normalized * force, ForceMode.Impulse);
+        body.AddTorque(Random.insideUnitSphere * force, ForceMode.Impulse);
         LeaveEmf(body.position);
     }
 
@@ -291,9 +311,10 @@ public class GhostController : MonoBehaviour
         IsHunting = true;
         visual.enabled = true;
         hud.ShowMessage("The lights go wild. It's hunting you. RUN!", 4f);
+        float duration = huntDuration * Type.HuntDurationMultiplier;
         foreach (Room room in rooms)
-            StartCoroutine(Flicker(room, huntDuration));
-        yield return new WaitForSeconds(huntDuration);
+            StartCoroutine(Flicker(room, duration));
+        yield return new WaitForSeconds(duration);
         visual.enabled = false;
         IsHunting = false;
         _nextHuntTime = Time.time + huntCooldown;
@@ -306,14 +327,16 @@ public class GhostController : MonoBehaviour
     private void Chase()
     {
         Vector3 target = new(player.position.x, hoverHeight, player.position.z);
-        transform.position = Vector3.MoveTowards(transform.position, target, huntSpeed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, target,
+            huntSpeed * Type.HuntSpeedMultiplier * Time.deltaTime);
         if (Vector3.Distance(transform.position, target) <= catchDistance)
             gameManager.Lose("The ghost caught you.");
     }
 
-    private void Banish()
+    public void Banish()
     {
         StopAllCoroutines();
+        _exorcising = false;
         IsBanished = true;
         IsHunting = false;
         visual.enabled = false;

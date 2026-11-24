@@ -5,7 +5,9 @@ public enum RitualItemType
     HolyWater,
     Sage,
     Bell,
-    Crucifix
+    Crucifix,
+    IronNail,
+    Coin
 }
 
 public static class RitualItemNames
@@ -15,6 +17,7 @@ public static class RitualItemNames
         return item switch
         {
             RitualItemType.HolyWater => "Holy Water",
+            RitualItemType.IronNail => "Iron Nail",
             _ => item.ToString()
         };
     }

@@ -54715,6 +54715,10 @@ PrefabInstance:
       propertyPath: showDebugPanel
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6194940987254664069, guid: 41754e3452942f0978cf1558a282c2f7, type: 3}
+      propertyPath: modelFileName
+      value: ggml-tiny.en.bin
+      objectReference: {fileID: 0}
     - target: {fileID: 7200103094020503570, guid: 41754e3452942f0978cf1558a282c2f7, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7

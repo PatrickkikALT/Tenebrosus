@@ -1287,7 +1287,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860477733050966410}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: -0.00000004371139}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: -7, y: 0.431, z: -4.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1338,7 +1338,7 @@ Transform:
   - {fileID: 2558437732176442732}
   - {fileID: 1716308658743058019}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: -103.951, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!114 &6194940987254664069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1351,7 +1351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6dd8aee36bec64068efe3628542fc7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::VoiceRecognition
-  modelFileName: ggml-base.en.bin
+  modelFileName: ggml-tiny.en.bin
   language: en
   fullContext: 0
   contextPadding: 100
@@ -1399,18 +1399,15 @@ MonoBehaviour:
   voice: {fileID: 6194940987254664069}
   listener: {fileID: 0}
   listenRange: 3
-  serverUrl: http://127.0.0.1:9931
-  model: 
-  temperature: 0.8
-  maxTokens: 256
-  historyTurns: 6
+  responses: {fileID: 11400000, guid: 616237c950d5cfe5bbf5276ddab7d4d9, type: 2}
+  thinkTime: {x: 0.8, y: 2.2}
   maxAnswerChars: 40
   spellSpeed: 1
   moveSpeed: 0.6
   wobble: 0.004
   tiltPerMeter: 25
-  debugLog: 1
-  showDebugPanel: 1
+  debugLog: 0
+  showDebugPanel: 0
   planchette: {fileID: 3958502869015123647}
   planchetteHeight: 0.016
   pointerOffset: {x: 0, y: 0}

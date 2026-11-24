@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d08f511564dae12c2882030c1b8e882c, type: 3}
+  m_Name: Nokken Ritual
+  m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
+  ghostType: {fileID: 11400000, guid: 5f12e8032f7b48088f83ce93bbf336f9, type: 2}
+  flavorLine: 'Do not listen to the music. Steel is the only answer it fears.'
+  steps:
+  - phrase: 'Fidicen aquarum, chordas tuas solve'
+    translation: 'Fiddler of the waters, unstring your strings'
+    matchThreshold: 0.55
+    requiresSacrifice: 0
+    sacrifice: 0
+    timing: 0
+    timeLimit: 30
+    effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
+  - phrase: 'Acus in aqua, ferrum in flumine'
+    translation: 'A needle in the water, iron in the river'
+    matchThreshold: 0.6
+    requiresSacrifice: 1
+    sacrifice: 6
+    timing: 1
+    timeLimit: 35
+    effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
+  - phrase: 'Cantus tuus me non trahet'
+    translation: 'Your song will not draw me in'
+    matchThreshold: 0.6
+    requiresSacrifice: 0
+    sacrifice: 0
+    timing: 0
+    timeLimit: 30
+    effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
+  - phrase: 'Redi in profundum et sile'
+    translation: 'Return to the deep and be silent'
+    matchThreshold: 0.6
+    requiresSacrifice: 1
+    sacrifice: 4
+    timing: 2
+    timeLimit: 40
+    effects: {fileID: 11400000, guid: 1c46d2edc8764afa83fee67545526d5c, type: 2}
+  failurePolicy: 0
+  stepsLostOnFailure: 1
+  maxFailures: 3
+  failureSanityLoss: 8
+  abortSanityLoss: 20

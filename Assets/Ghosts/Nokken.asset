@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03403c30845cbf4e69a8d16b552099b7, type: 3}
+  m_Name: Nokken
+  m_EditorClassIdentifier: Assembly-CSharp::GhostType
+  ghostName: Nøkken
+  description: 'A water spirit that plays the fiddle to lure the living into deep water.'
+  evidence: 37
+  tell: 'Faint fiddle music drifts through the house. Its EVP answers are sung.'
+  flickerWeight: 1
+  throwWeight: 1
+  lightsOffWeight: 1
+  glimpseWeight: 1.5
+  activityRate: 1
+  throwForceMultiplier: 1
+  huntSpeedMultiplier: 0.9
+  huntDurationMultiplier: 1.2
+  evpResponses:
+  - '...la la la...'
+  - '...come and swim...'
+  - '...dance with me...'
+  - '...the water is warm...'
+  omenClip: {fileID: 0}
+  omenRepeats: 1
+  omenInterval: 0.6
+  ambientClip: {fileID: 0}
+  ambientInterval: {x: 25, y: 50}

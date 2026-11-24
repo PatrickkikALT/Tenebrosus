@@ -15,4 +15,18 @@ MonoBehaviour:
   ghostName: Demon
   description: An ancient malevolent entity that feeds on fear. It hates being observed and rewards defiance with violence.
   evidence: 42
-  ritualSteps: 020000000500000000000000
+  tell: 'Acts far more often than any other spirit, and hunts a little faster.'
+  flickerWeight: 1
+  throwWeight: 1
+  lightsOffWeight: 1
+  glimpseWeight: 1
+  activityRate: 1.4
+  throwForceMultiplier: 1
+  huntSpeedMultiplier: 1.15
+  huntDurationMultiplier: 1
+  evpResponses: []
+  omenClip: {fileID: 0}
+  omenRepeats: 1
+  omenInterval: 0.6
+  ambientClip: {fileID: 0}
+  ambientInterval: {x: 30, y: 60}

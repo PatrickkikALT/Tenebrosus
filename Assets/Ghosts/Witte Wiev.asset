@@ -16,4 +16,18 @@ MonoBehaviour:
   description: A pale woman in white who rises like mist from the floorboards and
     leaves damp handprints behind.
   evidence: 26
-  ritualSteps: 0400000002000000
+  tell: 'Prefers to turn the lights off.'
+  flickerWeight: 1
+  throwWeight: 0.5
+  lightsOffWeight: 3
+  glimpseWeight: 1
+  activityRate: 1
+  throwForceMultiplier: 1
+  huntSpeedMultiplier: 1
+  huntDurationMultiplier: 1
+  evpResponses: []
+  omenClip: {fileID: 0}
+  omenRepeats: 1
+  omenInterval: 0.6
+  ambientClip: {fileID: 0}
+  ambientInterval: {x: 30, y: 60}

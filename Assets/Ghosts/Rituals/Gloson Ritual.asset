@@ -1,0 +1,54 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d08f511564dae12c2882030c1b8e882c, type: 3}
+  m_Name: Gloson Ritual
+  m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
+  ghostType: {fileID: 11400000, guid: d732883c1d3b4a799152f13afba46b55, type: 2}
+  flavorLine: 'Keep a light burning. It runs from the bell, not from you.'
+  steps:
+  - phrase: 'Sus nocturna, siste cursum'
+    translation: 'Sow of the night, halt your run'
+    matchThreshold: 0.6
+    requiresSacrifice: 1
+    sacrifice: 1
+    timing: 0
+    timeLimit: 40
+    effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
+  - phrase: 'Dorsum tuum non me secabit'
+    translation: 'Your back shall not cut me'
+    matchThreshold: 0.6
+    requiresSacrifice: 0
+    sacrifice: 0
+    timing: 0
+    timeLimit: 30
+    effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
+  - phrase: 'Audi campanam et recede'
+    translation: 'Hear the bell and withdraw'
+    matchThreshold: 0.6
+    requiresSacrifice: 1
+    sacrifice: 4
+    timing: 1
+    timeLimit: 35
+    effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
+  - phrase: 'In tenebras curre, et numquam redi'
+    translation: 'Run into the darkness, and never return'
+    matchThreshold: 0.55
+    requiresSacrifice: 0
+    sacrifice: 0
+    timing: 0
+    timeLimit: 30
+    effects: {fileID: 11400000, guid: 1c46d2edc8764afa83fee67545526d5c, type: 2}
+  failurePolicy: 1
+  stepsLostOnFailure: 1
+  maxFailures: 3
+  failureSanityLoss: 8
+  abortSanityLoss: 20

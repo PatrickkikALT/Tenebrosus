@@ -16,4 +16,22 @@ MonoBehaviour:
   description: The cold remains of someone who refuses to let go of what they owned
     in life.
   evidence: 7
-  ritualSteps: 0300000001000000
+  tell: 'Never throws anything. It will not let go of its belongings.'
+  flickerWeight: 1
+  throwWeight: 0
+  lightsOffWeight: 2
+  glimpseWeight: 1
+  activityRate: 1
+  throwForceMultiplier: 1
+  huntSpeedMultiplier: 1
+  huntDurationMultiplier: 1
+  evpResponses:
+  - '...mine...'
+  - '...don''t touch...'
+  - '...put it back...'
+  - '...it belongs to me...'
+  omenClip: {fileID: 0}
+  omenRepeats: 1
+  omenInterval: 0.6
+  ambientClip: {fileID: 0}
+  ambientInterval: {x: 30, y: 60}

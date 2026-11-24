@@ -16,4 +16,22 @@ MonoBehaviour:
   description: A restless soul trapped in an object, desperate to find a living
     host.
   evidence: 21
-  ritualSteps: 050000000000000002000000
+  tell: 'Loves throwing things around.'
+  flickerWeight: 1
+  throwWeight: 3
+  lightsOffWeight: 1
+  glimpseWeight: 1
+  activityRate: 1
+  throwForceMultiplier: 1
+  huntSpeedMultiplier: 1
+  huntDurationMultiplier: 1
+  evpResponses:
+  - '...let me in...'
+  - '...your body...'
+  - '...so empty...'
+  - '...I need you...'
+  omenClip: {fileID: 0}
+  omenRepeats: 1
+  omenInterval: 0.6
+  ambientClip: {fileID: 0}
+  ambientInterval: {x: 30, y: 60}

@@ -16,4 +16,18 @@ MonoBehaviour:
   description: A shapeshifter from old Flemish tales. You hear its chains rattling
     long before you see it.
   evidence: 52
-  ritualSteps: 010000000300000004000000
+  tell: 'Hunts fast but briefly. Its chains rattle just before it acts.'
+  flickerWeight: 1
+  throwWeight: 1
+  lightsOffWeight: 1
+  glimpseWeight: 1
+  activityRate: 1
+  throwForceMultiplier: 1
+  huntSpeedMultiplier: 1.3
+  huntDurationMultiplier: 0.8
+  evpResponses: []
+  omenClip: {fileID: 0}
+  omenRepeats: 2
+  omenInterval: 0.8
+  ambientClip: {fileID: 0}
+  ambientInterval: {x: 30, y: 60}

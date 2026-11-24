@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [CreateAssetMenu(menuName = "Tenebrosus/Exorcism Ritual", fileName = "ExorcismRitual")]
-public class ExorcismRitualData : ScriptableObject
+public class ExorcismRitualData : BookPage
 {
     [SerializeField] private GhostType ghostType;
     [SerializeField] [TextArea] private string flavorLine;
@@ -13,6 +13,8 @@ public class ExorcismRitualData : ScriptableObject
     [SerializeField] private float failureSanityLoss = 8f;
     [SerializeField] private float abortSanityLoss = 20f;
 
+    public override string Title => ghostType.GhostName;
+    public override string Subtitle => flavorLine;
     public GhostType GhostType => ghostType;
     public string FlavorLine => flavorLine;
     public RitualStep[] Steps => steps;

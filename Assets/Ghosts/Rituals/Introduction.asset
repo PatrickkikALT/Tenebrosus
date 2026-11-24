@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47562331eb8e4ae9b8602bb2935370c5, type: 3}
+  m_Name: Introduction
+  m_EditorClassIdentifier: 
+  title: Exorcising Ghosts for Dummies
+  subtitle: So something in your house is dead and angry. Don't panic. Read this
+    page first.
+  leftText: '<b>Before you begin</b>
+
+    1. Name your ghost. Gather evidence and
+    check your journal.
+
+    2. Find its page in this book. The wrong verses will
+    not work.
+
+    3. Bring every offering the page asks for.
+
+
+    <b>To begin</b>
+
+    With
+    this book in hand, touch the object the ghost has claimed.'
+  rightText: '<b>During the rite</b>
+
+    Speak each verse aloud, clearly, in Latin.
+    The current verse glows red.
+
+    Offerings go into the bowl: <i>first</i> before
+    the words, <i>while</i> as you speak, <i>then</i> after.
+
+
+    <b>Mistakes</b>
+
+    Every
+    mistake makes the ghost lash out. Too many and the circle shatters, and the ghost
+    wakes furious.
+
+
+    Do not wander off. It is listening.'

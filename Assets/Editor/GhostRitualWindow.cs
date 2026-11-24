@@ -7,7 +7,6 @@ public class GhostRitualWindow : EditorWindow
 {
     private const string GhostFolder = "Assets/Ghosts";
     private const string RitualFolder = "Assets/Ghosts/Rituals";
-    private const string SyncMenu = "Tenebrosus/Sync Ghosts And Rituals";
     private const int NewRitualSteps = 4;
 
     private Vector2 _detailScroll;
@@ -95,7 +94,7 @@ public class GhostRitualWindow : EditorWindow
                 GUIUtility.ExitGUI();
             }
         EditorGUILayout.Space();
-        if (GUILayout.Button("Sync scene lists")) EditorApplication.ExecuteMenuItem(SyncMenu);
+        if (GUILayout.Button("Sync scene lists")) SyncScene();
         if (GUILayout.Button("Refresh"))
         {
             Refresh();
@@ -220,6 +219,58 @@ public class GhostRitualWindow : EditorWindow
             AssetDatabase.GenerateUniqueAssetPath($"{RitualFolder}/{FileName(ghostName)} Ritual.asset"));
         AssetDatabase.SaveAssets();
         Refresh();
+    }
+
+    private void SyncScene()
+    {
+        Refresh();
+        foreach (GhostController controller in FindObjectsByType<GhostController>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            SetArray(controller, "possibleTypes", _ghosts);
+        foreach (RitualController controller in FindObjectsByType<RitualController>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            SetArray(controller, "rituals", _rituals);
+        BookPage[] pages = Load<IntroductionPage>().OrderBy(page => page.name)
+            .Concat<BookPage>(_ghosts.Select(RitualFor).Where(ritual => ritual != null))
+            .ToArray();
+        foreach (ExorcismBook book in FindObjectsByType<ExorcismBook>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            SetArray(book, "pages", pages);
+        foreach (Journal journal in FindObjectsByType<Journal>(FindObjectsInactive.Include, FindObjectsSortMode.None))
+            SyncJournal(journal);
+    }
+
+    private void SyncJournal(Journal journal)
+    {
+        SerializedObject serialized = new(journal);
+        SerializedProperty entries = serialized.FindProperty("ghostEntries");
+        GhostEntry[] existing = Enumerable.Range(0, entries.arraySize)
+            .Select(i => (GhostEntry)entries.GetArrayElementAtIndex(i).objectReferenceValue)
+            .Where(entry => entry != null)
+            .ToArray();
+        GhostEntry template = existing.LastOrDefault();
+        if (template == null) return;
+        foreach (GhostType ghost in _ghosts.Where(ghost => existing.All(entry => entry.GhostType != ghost)))
+        {
+            GameObject copy = Instantiate(template.gameObject, template.transform.parent);
+            copy.name = $"Entry {ghost.name}";
+            Undo.RegisterCreatedObjectUndo(copy, "Add journal entry");
+            GhostEntry entry = copy.GetComponent<GhostEntry>();
+            SerializedObject entryObject = new(entry);
+            entryObject.FindProperty("ghostType").objectReferenceValue = ghost;
+            entryObject.ApplyModifiedProperties();
+            entries.arraySize++;
+            entries.GetArrayElementAtIndex(entries.arraySize - 1).objectReferenceValue = entry;
+        }
+
+        serialized.ApplyModifiedProperties();
+    }
+
+    private static void SetArray(Object target, string field, Object[] values)
+    {
+        SerializedObject serialized = new(target);
+        SerializedProperty property = serialized.FindProperty(field);
+        property.arraySize = values.Length;
+        for (int i = 0; i < values.Length; i++)
+            property.GetArrayElementAtIndex(i).objectReferenceValue = values[i];
+        serialized.ApplyModifiedProperties();
     }
 
     private static string FileName(string text)

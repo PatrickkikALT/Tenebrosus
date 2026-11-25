@@ -13,42 +13,42 @@ MonoBehaviour:
   m_Name: Demon Ritual
   m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
   ghostType: {fileID: 11400000, guid: 809868b67320685f382ceae211704f1f, type: 2}
-  flavorLine: 'Speak without faltering. It feeds on every pause.'
+  flavorLine: Speak without faltering. It feeds on every pause.
   steps:
-  - phrase: 'Exorcizo te, immundissime spiritus'
-    translation: 'I cast you out, most unclean spirit'
+  - phrase: Te exercizo spiritus immundisime.
+    translation: I cast you out, most unclean spirit
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 0
     timing: 0
     timeLimit: 40
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'In nomine Dei vivi, recede ab hac domo'
-    translation: 'In the name of the living God, withdraw from this house'
+  - phrase: In nomine Dei vivi, recede ab hac domo.
+    translation: In the name of the living God, withdraw from this house
     matchThreshold: 0.55
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'Ure, ure, flamma sacra, et vincula solve'
-    translation: 'Burn, burn, sacred flame, and loosen the chains'
+  - phrase: Ure, ure, flamma sacra, et catena solve.
+    translation: Burn, burn, sacred flame, and loosen the chains
     matchThreshold: 0.55
     requiresSacrifice: 1
     sacrifice: 1
     timing: 1
     timeLimit: 35
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Non habes hic locum, neque requiem'
-    translation: 'You have no place here, nor any rest'
+  - phrase: Neque hic locum neque requiem habes.
+    translation: You have no place here, nor any rest
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Vade retro, Satana, et numquam revertaris'
-    translation: 'Begone, Satan, and never return'
+  - phrase: Vade retro Satana et numquam revertaris.
+    translation: Begone, Satan, and never return
     matchThreshold: 0.55
     requiresSacrifice: 1
     sacrifice: 2

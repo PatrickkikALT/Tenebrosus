@@ -13,34 +13,34 @@ MonoBehaviour:
   m_Name: Gloson Ritual
   m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
   ghostType: {fileID: 11400000, guid: d732883c1d3b4a799152f13afba46b55, type: 2}
-  flavorLine: 'Keep a light burning. It runs from the bell, not from you.'
+  flavorLine: Keep a light burning. It runs from the bell, not from you.
   steps:
-  - phrase: 'Sus nocturna, siste cursum'
-    translation: 'Sow of the night, halt your run'
+  - phrase: Sus nocturna siste cursum.
+    translation: Sow of the night, halt your run
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 1
     timing: 0
     timeLimit: 40
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'Dorsum tuum non me secabit'
-    translation: 'Your back shall not cut me'
+  - phrase: Dorsum tuum me non secabit
+    translation: Your back shall not cut me
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Audi campanam et recede'
-    translation: 'Hear the bell and withdraw'
+  - phrase: Audi campanam et recede
+    translation: Hear the bell and withdraw
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 4
     timing: 1
     timeLimit: 35
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'In tenebras curre, et numquam redi'
-    translation: 'Run into the darkness, and never return'
+  - phrase: Curre in tenebras et numquam redi.
+    translation: Run into the darkness, and never return
     matchThreshold: 0.55
     requiresSacrifice: 0
     sacrifice: 0

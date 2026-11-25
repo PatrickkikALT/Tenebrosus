@@ -13,34 +13,34 @@ MonoBehaviour:
   m_Name: Strandvaskare Ritual
   m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
   ghostType: {fileID: 11400000, guid: 952f79394122414a8886f5f2a7409ad0, type: 2}
-  flavorLine: 'Pay its passage and promise it holy ground.'
+  flavorLine: Pay its passage and promise it holy ground.
   steps:
-  - phrase: 'Corpus a mari eiectum, audi me'
-    translation: 'Body cast up by the sea, hear me'
+  - phrase: Corpus eiectum mari audi me.
+    translation: Body cast up by the sea, hear me
     matchThreshold: 0.55
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'Accipe nummum pro transitu tuo'
-    translation: 'Take this coin for your passage'
+  - phrase: Accipe nummum pro transitu tuo
+    translation: Take this coin for your passage
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 7
     timing: 0
     timeLimit: 40
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Terra sacra te exspectat'
-    translation: 'Consecrated ground awaits you'
+  - phrase: Terra sacra te exspectat
+    translation: Consecrated land awaits you
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Requiescas sub signo crucis'
-    translation: 'Rest beneath the sign of the cross'
+  - phrase: Requiesce sub signo crucis
+    translation: Rest beneath the sign of the cross
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 5

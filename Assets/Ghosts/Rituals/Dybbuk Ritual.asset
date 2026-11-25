@@ -13,34 +13,34 @@ MonoBehaviour:
   m_Name: Dybbuk Ritual
   m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
   ghostType: {fileID: 11400000, guid: 6ef8d403288721e918d5921739f0d116, type: 2}
-  flavorLine: 'It clings to what it holds. Make it let go.'
+  flavorLine: It clings to what it holds. Make it let go.
   steps:
-  - phrase: 'Anima errans, corpus alienum relinque'
-    translation: 'Wandering soul, leave the body that is not yours'
+  - phrase: Anima errans corpus alienum relinque.
+    translation: Wandering soul, leave the body that is not yours
     matchThreshold: 0.55
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'Sal terrae te ligat et separat'
-    translation: 'The salt of the earth binds you and parts you'
+  - phrase: Sal terrae te ligat et separat.
+    translation: The salt of the earth binds you and parts you
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 0
     timing: 1
     timeLimit: 35
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Revertere ad requiem tuam'
-    translation: 'Return to your rest'
+  - phrase: Reverte ad tuam requiem.
+    translation: Return to your rest
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Lux perpetua te ducat foras'
-    translation: 'May perpetual light lead you out'
+  - phrase: Lux aeterna te foras ducat.
+    translation: May perpetual light lead you outside.
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 1

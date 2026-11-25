@@ -13,34 +13,36 @@ MonoBehaviour:
   m_Name: Will-o-Wisp Ritual
   m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
   ghostType: {fileID: 11400000, guid: 6240577784b3347c28013cb98b8c0571, type: 2}
-  flavorLine: 'Do not follow the light. Call it back to you.'
+  flavorLine: Do not follow the light. Call it back to you.
   steps:
-  - phrase: 'Lumen fallax, desine errare'
-    translation: 'False light, cease your wandering'
+  - phrase: Lumen fallax, desine errare.
+    translation: False light, cease your wandering
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'Sonus campanae te revocat'
-    translation: 'The sound of the bell calls you back'
+  - phrase: Sonus campanae te revocat.
+    translation: The sound of the bell calls you back
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 4
     timing: 1
     timeLimit: 35
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Exstinguere in nomine lucis verae'
-    translation: 'Be snuffed out in the name of the true light'
+  - phrase: Exstingue in nomine lucis verae.
+    translation: Be snuffed out in the name of the true light
     matchThreshold: 0.55
     requiresSacrifice: 1
     sacrifice: 1
     timing: 2
     timeLimit: 40
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Paludes tuas relinque in aeternum'
-    translation: 'Leave your marshes forever'
+  - phrase: 'Relinque in aeternum paludes tuas.
+
+'
+    translation: Leave into your eternal marshes forever
     matchThreshold: 0.55
     requiresSacrifice: 0
     sacrifice: 0

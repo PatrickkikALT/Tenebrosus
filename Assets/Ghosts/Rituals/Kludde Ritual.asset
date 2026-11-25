@@ -13,34 +13,34 @@ MonoBehaviour:
   m_Name: Kludde Ritual
   m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
   ghostType: {fileID: 11400000, guid: b1efeb8dd1376c9adaf8e7407e6f5c11, type: 2}
-  flavorLine: 'Silence the chains before they find your throat.'
+  flavorLine: Silence the chains before they find your throat.
   steps:
-  - phrase: 'Canis catenis vinctus, audi me'
-    translation: 'Hound bound in chains, hear me'
+  - phrase: Canis catenis vinctus, audi me.
+    translation: Hound bound in chains, hear me
     matchThreshold: 0.6
     requiresSacrifice: 1
     sacrifice: 4
     timing: 0
     timeLimit: 40
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'Catenae tuae frangantur in aqua'
-    translation: 'May your chains shatter in the water'
+  - phrase: Catenae tuae in aqua frangantur.
+    translation: May your chains shatter in the water
     matchThreshold: 0.55
     requiresSacrifice: 1
     sacrifice: 2
     timing: 1
     timeLimit: 35
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Redi in tenebras unde venisti'
-    translation: 'Go back into the darkness you came from'
+  - phrase: Redi in tenebras unde venisti.
+    translation: Go back into the darkness you came from
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Silentium, et noctem relinque'
-    translation: 'Silence, and leave the night'
+  - phrase: Tace et noctem relinque.
+    translation: Silence, and leave the night
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0

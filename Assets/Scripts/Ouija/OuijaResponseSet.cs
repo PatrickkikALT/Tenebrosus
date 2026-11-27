@@ -18,7 +18,7 @@ namespace Ouija
         }
 
         public string Temperament => temperament;
-        public string[] Lines => lines ?? Array.Empty<string>();
+        public string[] Lines => lines;
     }
 
     [Serializable]
@@ -58,15 +58,15 @@ namespace Ouija
         }
 
         public string Name => name;
-        public string[] Triggers => triggers ?? Array.Empty<string>();
-        public string[] StartWords => startWords ?? Array.Empty<string>();
+        public string[] Triggers => triggers;
+        public string[] StartWords => startWords;
         public float MinScore => minScore;
         public int Priority => priority;
-        public string[] Lines => lines ?? Array.Empty<string>();
-        public MoodLines[] Moods => moodLines ?? Array.Empty<MoodLines>();
-        public string[] AngryLines => angryLines ?? Array.Empty<string>();
-        public string[] RepeatLines => repeatLines ?? Array.Empty<string>();
-        public string[] FallbackLines => fallbackLines ?? Array.Empty<string>();
+        public string[] Lines => lines;
+        public MoodLines[] Moods => moodLines;
+        public string[] AngryLines => angryLines;
+        public string[] RepeatLines => repeatLines;
+        public string[] FallbackLines => fallbackLines;
         public float Anger => anger;
         public float SanityCost => sanityCost;
 

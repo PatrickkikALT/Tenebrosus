@@ -47,6 +47,12 @@ public class PlayerInteractor : MonoBehaviour
     public void OnUse(InputAction.CallbackContext ctx)
     {
         if (!ctx.performed || !movement.canMove) return;
+        if (Held is RitualChalk)
+        {
+            if (_hasHit && _hit.normal.y >= minPlaceNormalY) ritual.DrawSite(_hit.point, camera.position);
+            return;
+        }
+
         if (Held is Tool tool)
             tool.Use();
     }
@@ -80,7 +86,9 @@ public class PlayerInteractor : MonoBehaviour
 
         if (_hit.collider.TryGetComponent(out SacrificeAltar altar))
         {
-            if (Held is RitualItem offering && altar.Offer(offering))
+            if (Book != null && !ritual.IsActive)
+                ritual.Begin(ritual.FindTarget());
+            else if (Held is RitualItem offering && altar.Offer(offering))
                 _slots[ActiveSlot] = null;
             return;
         }
@@ -94,15 +102,10 @@ public class PlayerInteractor : MonoBehaviour
             return;
         }
 
+        if (ritual.IsActive && carryable == ritual.Target) return;
         if (carryable != null)
         {
             PickUp(carryable);
-            return;
-        }
-
-        if (_hit.collider.TryGetComponent(out HauntableObject hauntable))
-        {
-            if (Book != null) ritual.Begin(hauntable);
             return;
         }
 
@@ -110,7 +113,8 @@ public class PlayerInteractor : MonoBehaviour
         Quaternion facing = Quaternion.Euler(0f, camera.eulerAngles.y, 0f);
         if (Held != null)
         {
-            Held.Place(_hit.point, facing);
+            Held.Place(Held is HauntableObject && ritual.Contains(_hit.point) ? ritual.Site.position : _hit.point,
+                facing);
             _slots[ActiveSlot] = null;
             return;
         }
@@ -160,19 +164,19 @@ public class PlayerInteractor : MonoBehaviour
         if (_hit.collider.TryGetComponent(out HeadCamera headCamera))
             return $"[E] Wear {headCamera.DisplayName}";
         if (_hit.collider.TryGetComponent(out SacrificeAltar altar))
-            return altar.Prompt(Held);
+            return altar.Prompt(Held, Book != null);
         Carryable carryable = _hit.collider.GetComponentInParent<Carryable>();
         if (carryable is ExorcismBook)
             return $"[E] Pick up {carryable.DisplayName}";
+        if (ritual.IsActive && carryable == ritual.Target)
+            return carryable.DisplayName;
         if (carryable != null)
             return Held == null || HasEmptySlot
                 ? $"[E] Pick up {carryable.DisplayName}"
                 : $"[E] Swap for {carryable.DisplayName}";
-        if (_hit.collider.TryGetComponent(out HauntableObject hauntable))
-            return Book != null && !ritual.IsActive
-                ? $"[E] Begin the exorcism at the {hauntable.DisplayName}"
-                : hauntable.DisplayName;
         if (_hit.normal.y < minPlaceNormalY) return "";
+        if (Held is HauntableObject && ritual.Contains(_hit.point))
+            return $"[E] Place {Held.DisplayName} in the circle";
         if (Held != null) return $"[E] Place {Held.DisplayName}";
         return Book != null ? $"[E] Put down {Book.DisplayName}" : "";
     }

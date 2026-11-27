@@ -17,7 +17,7 @@ namespace Ouija
         public OuijaContext(GhostProfile ghost, IReadOnlyList<string> memories, int questionsAsked, float insanity)
         {
             Ghost = ghost;
-            Memories = memories ?? Array.Empty<string>();
+            Memories = memories;
             QuestionsAsked = questionsAsked;
             Insanity = insanity;
         }
@@ -140,8 +140,7 @@ namespace Ouija
 
             string temperament = ghost.Temperament.ToLowerInvariant();
             return intent.Lines.Concat(intent.Moods
-                .Where(m => !string.IsNullOrEmpty(m.Temperament) &&
-                            temperament.Contains(m.Temperament.ToLowerInvariant()))
+                .Where(m => temperament.Contains(m.Temperament.ToLowerInvariant()))
                 .SelectMany(m => m.Lines));
         }
 
@@ -157,7 +156,6 @@ namespace Ouija
                 foreach (string raw in intent.Triggers)
                 {
                     string trigger = Normalize(raw);
-                    if (trigger.Length == 0) continue;
                     if (trigger.Contains(' '))
                     {
                         if (text.Contains(" " + trigger + " ")) score += 2f;
@@ -226,7 +224,7 @@ namespace Ouija
 
         private static string Normalize(string text)
         {
-            string lower = (text ?? "").ToLowerInvariant().Replace("'", "").Replace("’", "");
+            string lower = text.ToLowerInvariant().Replace("'", "").Replace("’", "");
             return NonWord.Replace(lower, " ").Trim();
         }
 
@@ -237,7 +235,7 @@ namespace Ouija
             List<(string template, string text)> options = new();
             foreach (string line in pool)
             {
-                string filled = Fill(line ?? "", context);
+                string filled = Fill(line, context);
                 if (filled != null) options.Add((line, filled));
             }
 
@@ -285,8 +283,8 @@ namespace Ouija
 
         private string CauseWord(string cause)
         {
-            string lower = (cause ?? "").ToLowerInvariant();
-            WordSwap match = _set.CauseWords.FirstOrDefault(c => !string.IsNullOrEmpty(c.From) && lower.Contains(c.From));
+            string lower = cause.ToLowerInvariant();
+            WordSwap match = _set.CauseWords.FirstOrDefault(c => lower.Contains(c.From));
             if (match != null) return match.To;
             return ContentWords(cause).FirstOrDefault();
         }
@@ -332,7 +330,7 @@ namespace Ouija
 
         public static string Board(string text)
         {
-            return NonBoard.Replace((text ?? "").ToUpperInvariant(), " ").Trim();
+            return NonBoard.Replace(text.ToUpperInvariant(), " ").Trim();
         }
     }
 }

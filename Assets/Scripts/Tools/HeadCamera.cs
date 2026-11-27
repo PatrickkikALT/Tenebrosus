@@ -23,7 +23,7 @@ public class HeadCamera : Carryable
         {
             if (NightVisionActive) return $"Night vision: {_activeUntil - Time.time:0}s left";
             if (Time.time < _readyAt) return $"Night vision: recharging {_readyAt - Time.time:0}s";
-            return "Night vision: ready [N]";
+            return "Night vision: ready";
         }
     }
 

@@ -12,6 +12,7 @@ public class RitualSigil : RitualEffect
     [SerializeField] private Light glow;
     [SerializeField] private VoiceRecognition voice;
     [SerializeField] [ColorUsage(false, true)] private Color startColor = new(4f, 1.6f, 0.4f);
+    [SerializeField] [Range(0f, 1f)] private float idleReveal = 0.35f;
     [SerializeField] private float drawDuration = 3f;
     [SerializeField] private float fadeDuration = 2.5f;
     [SerializeField] private float voiceGain = 25f;
@@ -37,6 +38,12 @@ public class RitualSigil : RitualEffect
         _color = startColor;
         _targetColor = startColor;
         Apply();
+    }
+
+    private void OnEnable()
+    {
+        _reveal = 0f;
+        _revealTarget = idleReveal;
     }
 
     private void Update()
@@ -89,7 +96,7 @@ public class RitualSigil : RitualEffect
 
     public override void RitualEnded()
     {
-        _revealTarget = 0f;
+        _revealTarget = idleReveal;
     }
 
     private void Apply()

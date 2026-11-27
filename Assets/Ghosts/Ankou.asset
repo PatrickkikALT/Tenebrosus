@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 03403c30845cbf4e69a8d16b552099b7, type: 3}
-  m_Name: Klabautermann
+  m_Name: Ankou
   m_EditorClassIdentifier: Assembly-CSharp::GhostType
-  ghostName: Klabautermann
-  description: 'A ship''s spirit that lives in old timber. Sailors said its knocking warned of disaster.'
+  ghostName: Ankou
+  description: Servant of Death, the last soul to die in the parish each year. It
+    walks the house collecting what it is owed.
+  tell: Its cart wheels creak before it acts.
   evidence: 28
-  tell: 'Knocks three times before it acts.'
   flickerWeight: 1
   throwWeight: 1.5
   lightsOffWeight: 1
@@ -25,10 +26,10 @@ MonoBehaviour:
   huntSpeedMultiplier: 1
   huntDurationMultiplier: 1
   evpResponses:
-  - '...knock knock...'
-  - '...she is sinking...'
-  - '...the hull...'
-  - '...all hands...'
+  - ...whose turn...
+  - ...one more...
+  - ...the cart is not full...
+  - ...I have come for you...
   omenClip: {fileID: 0}
   omenRepeats: 3
   omenInterval: 0.6

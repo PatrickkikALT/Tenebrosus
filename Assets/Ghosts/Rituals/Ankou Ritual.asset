@@ -10,41 +10,41 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d08f511564dae12c2882030c1b8e882c, type: 3}
-  m_Name: Klabautermann Ritual
+  m_Name: Ankou Ritual
   m_EditorClassIdentifier: Assembly-CSharp::ExorcismRitualData
   ghostType: {fileID: 11400000, guid: 1c0fe2b09dba4b32b40915a17c742ef0, type: 2}
-  flavorLine: 'Ring before you speak. It only listens to the ship''s bell.'
+  flavorLine: 'Pay its toll, then light its way. Death never leaves empty-handed.'
   steps:
-  - phrase: 'Pulsator carinae, audi campanam'
-    translation: 'Knocker in the hull, hear the bell'
+  - phrase: 'Ankou, messor animarum, accipe nummum'
+    translation: 'Ankou, reaper of souls, accept the coin'
     matchThreshold: 0.6
     requiresSacrifice: 1
-    sacrifice: 4
-    timing: 0
+    sacrifice: 7
+    timing: 1
     timeLimit: 40
     effects: {fileID: 11400000, guid: 857970e27f824175a284ff811613f0a0, type: 2}
-  - phrase: 'Navis haec non est tua'
-    translation: 'This ship is not yours'
+  - phrase: 'Nulla anima hic tibi debetur'
+    translation: 'No soul here is owed to you'
     matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
     timeLimit: 30
     effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Sal maris te reddat fluctibus'
-    translation: 'May the salt of the sea return you to the waves'
+  - phrase: 'Redi ad currum tuum stridentem'
+    translation: 'Return to your creaking cart'
     matchThreshold: 0.55
-    requiresSacrifice: 1
-    sacrifice: 0
-    timing: 1
-    timeLimit: 35
-    effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
-  - phrase: 'Tace, et naufragium relinque'
-    translation: 'Be silent, and leave the wreck'
-    matchThreshold: 0.6
     requiresSacrifice: 0
     sacrifice: 0
     timing: 0
+    timeLimit: 35
+    effects: {fileID: 11400000, guid: f97d930679af4ee8bfc8a173e6b33a25, type: 2}
+  - phrase: 'Lux te ducat ad coemeterium'
+    translation: 'May the light lead you to the graveyard'
+    matchThreshold: 0.6
+    requiresSacrifice: 1
+    sacrifice: 1
+    timing: 2
     timeLimit: 30
     effects: {fileID: 11400000, guid: 1c46d2edc8764afa83fee67545526d5c, type: 2}
   failurePolicy: 0

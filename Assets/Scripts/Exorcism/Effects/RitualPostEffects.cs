@@ -62,6 +62,15 @@ public class RitualPostEffects : RitualEffect
         Shader.SetGlobalFloat(SanityHitId, _sanityHit);
     }
 
+    private void OnDisable()
+    {
+        Shader.SetGlobalFloat(HazeId, 0f);
+        Shader.SetGlobalVector(ShockId, Vector4.zero);
+        Shader.SetGlobalFloat(FlashId, 0f);
+        Shader.SetGlobalFloat(BurstId, 0f);
+        Shader.SetGlobalFloat(SanityHitId, 0f);
+    }
+
     public override void RitualStarted(RitualController ritual)
     {
         _ritual = ritual;

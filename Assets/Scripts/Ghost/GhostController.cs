@@ -41,6 +41,11 @@ public class GhostController : MonoBehaviour
 
     [SerializeField] private float rageHuntSanity = 25f;
 
+    [Header("Tether")] [SerializeField] private float tetherDistance = 6f;
+
+    [SerializeField] private float tetherStrainInterval = 8f;
+    [SerializeField] private float tetherSanityLoss = 5f;
+
     [Header("Hunt")] [SerializeField] private float huntSanity = 40f;
 
     [SerializeField] [Range(0f, 1f)] private float maxHuntChance = 0.6f;
@@ -70,6 +75,8 @@ public class GhostController : MonoBehaviour
     private bool _exorcising;
     private float _nextAmbientTime;
     private int _rage;
+    private bool _strained;
+    private float _nextStrainTime;
 
     public GhostType Type { get; private set; }
     public Room HauntedRoom { get; private set; }
@@ -97,6 +104,7 @@ public class GhostController : MonoBehaviour
     {
         UpdateOrbs();
         if (IsBanished || _exorcising || !gameManager.IsPlaying) return;
+        UpdateTether();
         if (IsHunting)
         {
             Chase();
@@ -184,6 +192,20 @@ public class GhostController : MonoBehaviour
             room.RestoreLights();
         transform.position = position;
         visual.enabled = true;
+    }
+
+    private void UpdateTether()
+    {
+        bool strained = HauntedRoom.DistanceTo(BoundObject.transform.position) > tetherDistance;
+        if (strained != _strained)
+        {
+            _strained = strained;
+            _nextStrainTime = Time.time;
+        }
+
+        if (!_strained || Time.time < _nextStrainTime) return;
+        _nextStrainTime = Time.time + tetherStrainInterval;
+        RitualBacklash(tetherSanityLoss);
     }
 
     private void Wander()

@@ -27,6 +27,11 @@ public class Room : MonoBehaviour
         return area.bounds.Contains(position);
     }
 
+    public float DistanceTo(Vector3 position)
+    {
+        return Vector3.Distance(area.bounds.ClosestPoint(position), position);
+    }
+
     public Vector3 RandomPoint(float height)
     {
         Bounds bounds = area.bounds;

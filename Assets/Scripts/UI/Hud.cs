@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Hud : MonoBehaviour
 {
@@ -13,9 +14,7 @@ public class Hud : MonoBehaviour
     [SerializeField] private GameObject root;
     [SerializeField] private GameObject promptRoot;
     [SerializeField] private TMP_Text promptText;
-    [SerializeField] private TMP_Text toolNameText;
-    [SerializeField] private TMP_Text toolReadingText;
-    [SerializeField] private TMP_Text statusText;
+    [FormerlySerializedAs("toolReadingText")] [SerializeField] private TMP_Text readingText;
     [SerializeField] private GameObject messageRoot;
     [SerializeField] private TMP_Text messageText;
     private readonly StringBuilder _builder = new();
@@ -33,31 +32,10 @@ public class Hud : MonoBehaviour
         promptRoot.SetActive(prompt.Length > 0);
         promptText.text = prompt;
 
-        Carryable held = interactor.Held;
-        toolNameText.text = held != null ? held.DisplayName : "Empty hands";
-        toolReadingText.text = held switch
-        {
-            Tool tool => tool.Reading,
-            RitualItem => "Ritual item",
-            _ => "-"
-        };
-        _builder.Clear();
-        for (int i = 0; i < interactor.SlotCount; i++)
-        {
-            if (i > 0) _builder.Append("     ");
-            Carryable slot = interactor.GetSlot(i);
-            string slotName = slot != null ? slot.DisplayName : "Empty";
-            if (i == interactor.ActiveSlot)
-                _builder.Append("<color=#FFFFFF><b>").Append(slotName).Append("</b></color>");
-            else
-                _builder.Append(slotName);
-        }
-
-        if (headCamera.IsWorn)
-            _builder.Append("     ").Append(headCamera.Status);
-        if (interactor.Book != null)
-            _builder.Append("     ").Append(interactor.Book.Hint);
-        statusText.text = _builder.ToString();
+        string reading = interactor.Held is Tool tool ? tool.Reading :
+            headCamera.IsWorn ? headCamera.Status : "";
+        readingText.gameObject.SetActive(reading.Length > 0);
+        readingText.text = reading;
 
         _messages.RemoveAll(message => Time.time > message.until);
         messageRoot.SetActive(_messages.Count > 0);

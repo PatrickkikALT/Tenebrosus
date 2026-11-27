@@ -1132,11 +1132,8 @@ MonoBehaviour:
   voice: {fileID: 1077906579}
   listener: {fileID: 1679195257}
   listenRange: 3
-  serverUrl: http://127.0.0.1:9931
-  model: gemma-4-E2B-it-uncensored-Q4_K_M
-  temperature: 0.8
-  maxTokens: 256
-  historyTurns: 6
+  responses: {fileID: 0}
+  thinkTime: {x: 0.8, y: 2.2}
   maxAnswerChars: 40
   spellSpeed: 1
   moveSpeed: 0.6
@@ -8829,7 +8826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CameraMovement
   cameraHolder: {fileID: 1679195257}
   mouseSensitivity: 0.1
-  gamepadSensitivity: 1
+  gamepadDegreesPerSecond: 180
   canMove: 1
 --- !u!114 &1656058097
 MonoBehaviour:

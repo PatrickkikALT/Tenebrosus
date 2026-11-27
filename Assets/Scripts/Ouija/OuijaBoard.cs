@@ -104,9 +104,7 @@ namespace Ouija
             _ => "Spelling..."
         };
 
-        private string[] Memories => haunt.BoundObject != null && haunt.BoundObject.Memories != null
-            ? haunt.BoundObject.Memories
-            : Array.Empty<string>();
+        private string[] Memories => haunt.BoundObject.Memories;
         private int UnlockedMemories => Mathf.Min(Memories.Length, 1 + _questionsAsked / questionsPerMemory);
         private bool InRange => Vector3.Distance(listener.position, transform.position) <= listenRange;
 
@@ -132,7 +130,7 @@ namespace Ouija
 
         private void Update()
         {
-            if (Keyboard.current != null && Keyboard.current.f1Key.wasPressedThisFrame)
+            if (Keyboard.current.f1Key.wasPressedThisFrame)
             {
                 showDebugPanel = !showDebugPanel;
                 debugPanel.SetActive(showDebugPanel);
@@ -364,7 +362,7 @@ namespace Ouija
 
             yield return MoveTo(target, 1f);
 
-            if (_pulses.TryGetValue(label, out Coroutine running) && running != null) StopCoroutine(running);
+            if (_pulses.TryGetValue(label, out Coroutine running)) StopCoroutine(running);
             _pulses[label] = StartCoroutine(Pulse(label));
             yield return new WaitForSeconds(0.4f * dwellMultiplier / spellSpeed);
         }
@@ -414,9 +412,8 @@ namespace Ouija
 
         private string GhostSummary()
         {
-            string bound = haunt.BoundObject != null ? haunt.BoundObject.DisplayName : "nothing";
             return $"<color=#ffd27a>Ghost</color>\n{NoParse(ghost.DisplayName)}\n" +
-                   $"Bound to {NoParse(bound)}, memories {UnlockedMemories}/{Memories.Length}\n" +
+                   $"Bound to {NoParse(haunt.BoundObject.DisplayName)}, memories {UnlockedMemories}/{Memories.Length}\n" +
                    $"Anger {_responder.Anger:0.00}, insanity {sanity.Insanity:0.00}, questions {_questionsAsked}";
         }
 
@@ -452,7 +449,7 @@ namespace Ouija
 
         private static string NoParse(string text)
         {
-            return "<noparse>" + (text ?? "").Replace("</noparse>", "</ noparse>") + "</noparse>";
+            return "<noparse>" + text.Replace("</noparse>", "</ noparse>") + "</noparse>";
         }
 
         private enum State

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47562331eb8e4ae9b8602bb2935370c5, type: 3}
+  m_Name: Preparing the Circle
+  m_EditorClassIdentifier: 
+  title: Preparing the Circle
+  subtitle: A ghost cannot be cast out just anywhere. Build it a cage first.
+  leftText: "<b>Drawing the circle</b>\n1. Take the chalk in hand.\n2. Find open
+    floor, away from walls and furniture. The circle needs room to breathe.\n3.
+    Use the chalk on the floor. The circle is drawn where you look, and the bowl
+    faces you.\n\nIf the floor is too cramped, the chalk will not take. Try somewhere
+    more open.\n\nChanged your mind? Simply draw it again elsewhere."
+  rightText: "<b>Bringing the object</b>\nPick up the object the ghost has claimed
+    and carry it to the circle. Set it down inside the chalk and it will settle at
+    the center. Never carry it far from the room it haunts. The ghost will lash out until it is brought back, so draw your circle close by.\n\nOnly one object belongs in the circle. Choose wrongly and the
+    ghost will make you regret it.\n\n<b>Beginning the rite</b>\nWith this book in
+    hand, touch the ritual bowl. Once the rite has begun, the object cannot be moved."

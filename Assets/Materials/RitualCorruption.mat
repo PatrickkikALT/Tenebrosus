@@ -26,13 +26,13 @@ Material:
     m_Ints: []
     m_Floats:
     - _Corruption: 0
-    - _Flare: 0
     - _Darkness: 0.8
+    - _Flare: 0
+    - _Inflate: 0.002
+    - _PulseSpeed: 2.2
+    - _SpreadScale: 2.5
     - _VeinScale: 6
     - _VeinWidth: 0.08
-    - _SpreadScale: 2.5
-    - _PulseSpeed: 2.2
-    - _Inflate: 0.002
     m_Colors:
     - _VeinColor: {r: 5, g: 0.15, b: 0.1, a: 1}
   m_BuildTextureStacks: []

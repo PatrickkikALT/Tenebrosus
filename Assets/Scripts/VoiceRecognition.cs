@@ -92,15 +92,7 @@ public class VoiceRecognition : MonoBehaviour
 
     private void Awake()
     {
-        string path = Path.Combine(Application.streamingAssetsPath, modelFileName);
-        if (!File.Exists(path))
-        {
-            Debug.LogError(
-                $"VoiceRecognition: model not found at {path}. Download {modelFileName} from https://huggingface.co/ggerganov/whisper.cpp/tree/main and place it in Assets/StreamingAssets.");
-            return;
-        }
-
-        LoadModel(path);
+        LoadModel(Path.Combine(Application.streamingAssetsPath, modelFileName));
     }
 
     private void Update()
@@ -153,15 +145,8 @@ public class VoiceRecognition : MonoBehaviour
 
     private async void LoadModel(string path)
     {
-        try
-        {
-            _whisper = await Task.Run(() => new Whisper(path));
-            if (logResults) Debug.Log("VoiceRecognition: model loaded.");
-        }
-        catch (Exception exception)
-        {
-            Debug.LogException(exception);
-        }
+        _whisper = await Task.Run(() => new Whisper(path));
+        if (logResults) Debug.Log("VoiceRecognition: model loaded.");
     }
 
     private void ReadMicrophone()

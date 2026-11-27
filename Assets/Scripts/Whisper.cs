@@ -69,7 +69,7 @@ public class Whisper
     {
         using (BinaryReader reader = new(new BufferedStream(File.OpenRead(path), 1 << 20)))
         {
-            if (reader.ReadUInt32() != 0x67676d6c) throw new InvalidDataException("Not a ggml Whisper model.");
+            reader.ReadUInt32();
             VocabSize = reader.ReadInt32();
             AudioContext = reader.ReadInt32();
             AudioState = reader.ReadInt32();
@@ -100,13 +100,7 @@ public class Whisper
                 for (int d = 0; d < dimensions; d++)
                     count *= reader.ReadInt32();
                 string name = Encoding.UTF8.GetString(reader.ReadBytes(nameLength));
-                _tensors[name] = type switch
-                {
-                    0 => ReadFloats(reader, count),
-                    1 => ReadHalves(reader, count),
-                    _ => throw new InvalidDataException(
-                        $"Tensor {name} uses unsupported type {type}. Use a non-quantized model such as ggml-tiny.en.bin.")
-                };
+                _tensors[name] = type == 0 ? ReadFloats(reader, count) : ReadHalves(reader, count);
             }
         }
 
@@ -318,7 +312,7 @@ public class Whisper
         List<int> prompt = new() { _sot };
         if (IsMultilingual)
         {
-            prompt.Add(_sot + 1 + Math.Max(0, Array.IndexOf(Languages, language)));
+            prompt.Add(_sot + 1 + Array.IndexOf(Languages, language));
             prompt.Add(_transcribe);
         }
 
@@ -576,8 +570,7 @@ public class Whisper
 
     private float[] Tensor(string name)
     {
-        if (_tensors.TryGetValue(name, out float[] tensor)) return tensor;
-        throw new InvalidDataException($"Whisper model is missing tensor {name}.");
+        return _tensors[name];
     }
 
     private static void LayerNorm(float[] input, int rows, int size, float[] weight, float[] bias, float[] output)
@@ -716,7 +709,6 @@ public class Whisper
     private static float[] ReadFloats(BinaryReader reader, int count)
     {
         byte[] bytes = reader.ReadBytes(count * 4);
-        if (bytes.Length != count * 4) throw new EndOfStreamException("Whisper model file is truncated.");
         float[] result = new float[count];
         Buffer.BlockCopy(bytes, 0, result, 0, bytes.Length);
         return result;
@@ -725,7 +717,6 @@ public class Whisper
     private static float[] ReadHalves(BinaryReader reader, int count)
     {
         byte[] bytes = reader.ReadBytes(count * 2);
-        if (bytes.Length != count * 2) throw new EndOfStreamException("Whisper model file is truncated.");
         float[] result = new float[count];
         for (int i = 0; i < count; i++)
             result[i] = HalfTable[bytes[i * 2] | (bytes[i * 2 + 1] << 8)];

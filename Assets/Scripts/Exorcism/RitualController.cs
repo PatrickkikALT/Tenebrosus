@@ -14,8 +14,9 @@ public class RitualController : MonoBehaviour
     [SerializeField] private Transform player;
 
     [Header("Ritual Site")] [SerializeField] private Transform site;
-    [SerializeField] private LayerMask floorMask = 1;
-    [SerializeField] private float floorProbe = 3f;
+    [SerializeField] private float siteRadius = 1.2f;
+    [SerializeField] private float siteClearance = 1.5f;
+    [SerializeField] private LayerMask obstacleMask = 1;
     [SerializeField] private float ghostHeight = 1.2f;
 
     [Header("Voice")] [SerializeField] private string ritualLanguage = "la";
@@ -60,6 +61,7 @@ public class RitualController : MonoBehaviour
     public float Intensity { get; private set; }
     public Room Room => ghost.HauntedRoom;
     public Transform Site => site;
+    public bool HasSite => site.gameObject.activeSelf;
     public RitualStep CurrentStep => Ritual.Steps[StepIndex];
     public float TimeRemaining => Mathf.Max(0f, _deadline - Time.time);
     public bool IsActive => State != RitualState.Idle;
@@ -110,6 +112,12 @@ public class RitualController : MonoBehaviour
     public bool Begin(HauntableObject target)
     {
         if (IsActive || ghost.IsBanished || !gameManager.IsPlaying) return false;
+        if (target == null || target.IsHeld || !Contains(target.transform.position))
+        {
+            hud.ShowMessage("Nothing rests inside the circle. Bring the haunted object to it.", 3f);
+            return false;
+        }
+
         if (target != ghost.BoundObject)
         {
             hud.ShowMessage(
@@ -123,7 +131,6 @@ public class RitualController : MonoBehaviour
         StepIndex = 0;
         _failures = 0;
         _stepFraction = 0f;
-        PlaceSite(target.transform.position);
         _previousLanguage = voice.Language;
         voice.Language = ritualLanguage;
         State = RitualState.Preparing;
@@ -373,14 +380,53 @@ public class RitualController : MonoBehaviour
         intensityChanged.Invoke(Intensity);
     }
 
-    private void PlaceSite(Vector3 center)
+    public bool Contains(Vector3 position)
     {
-        Vector3 toPlayer = Vector3.ProjectOnPlane(player.position - center, Vector3.up).normalized;
-        float floor = Physics.Raycast(player.position, Vector3.down, out RaycastHit hit, floorProbe, floorMask,
-            QueryTriggerInteraction.Ignore)
-            ? hit.point.y
-            : center.y;
-        site.SetPositionAndRotation(new Vector3(center.x, floor, center.z), Quaternion.LookRotation(toPlayer));
+        if (!HasSite) return false;
+        Vector3 offset = position - site.position;
+        return offset.y > -0.5f && offset.y < siteClearance &&
+               Vector3.ProjectOnPlane(offset, Vector3.up).magnitude <= siteRadius;
+    }
+
+    public HauntableObject FindTarget()
+    {
+        Vector3 halfExtents = new(siteRadius, siteClearance * 0.5f, siteRadius);
+        Collider[] hits = Physics.OverlapBox(site.position + Vector3.up * halfExtents.y, halfExtents, site.rotation,
+            Physics.AllLayers, QueryTriggerInteraction.Ignore);
+        HauntableObject closest = null;
+        float closestDistance = float.MaxValue;
+        foreach (Collider hit in hits)
+        {
+            HauntableObject hauntable = hit.GetComponentInParent<HauntableObject>();
+            if (hauntable == null || !Contains(hauntable.transform.position)) continue;
+            float distance = Vector3.Distance(hauntable.transform.position, site.position);
+            if (distance >= closestDistance) continue;
+            closest = hauntable;
+            closestDistance = distance;
+        }
+
+        return closest;
+    }
+
+    public bool DrawSite(Vector3 point, Vector3 drawer)
+    {
+        if (IsActive) return false;
+        Vector3 toDrawer = Vector3.ProjectOnPlane(drawer - point, Vector3.up).normalized;
+        Quaternion rotation = Quaternion.LookRotation(toDrawer);
+        bool wasDrawn = HasSite;
+        site.gameObject.SetActive(false);
+        Vector3 halfExtents = new(siteRadius, siteClearance * 0.5f, siteRadius);
+        Vector3 center = point + Vector3.up * (0.05f + halfExtents.y);
+        if (Physics.CheckBox(center, halfExtents, rotation, obstacleMask, QueryTriggerInteraction.Ignore))
+        {
+            site.gameObject.SetActive(wasDrawn);
+            hud.ShowMessage("There isn't enough room to draw the circle here.", 3f);
+            return false;
+        }
+
+        site.SetPositionAndRotation(point, rotation);
         site.gameObject.SetActive(true);
+        hud.ShowMessage("You trace the circle in chalk. Place the haunted object inside it.", 4f);
+        return true;
     }
 }

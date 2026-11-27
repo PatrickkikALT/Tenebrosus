@@ -8,7 +8,7 @@ public static class PhraseMatcher
 
     public static string Normalize(string text)
     {
-        string lower = (text ?? "").ToLowerInvariant().Replace("æ", "ae").Replace("œ", "oe");
+        string lower = text.ToLowerInvariant().Replace("æ", "ae").Replace("œ", "oe");
         string decomposed = lower.Normalize(NormalizationForm.FormD);
         StringBuilder builder = new(decomposed.Length);
         bool pendingSpace = false;
@@ -45,7 +45,7 @@ public static class PhraseMatcher
 
     public static float Score(string[] heard, string[] target)
     {
-        if (heard.Length == 0 || target.Length == 0) return 0f;
+        if (heard.Length == 0) return 0f;
         string joinedTarget = string.Concat(target);
         float best = Similarity(string.Concat(heard), joinedTarget);
         int shortest = Math.Max(1, target.Length - 1);

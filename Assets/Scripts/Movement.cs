@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         if (!canMove) return;
-        Quaternion facing = _look != null ? _look.FlatRotation : transform.rotation;
+        Quaternion facing = _look.FlatRotation;
         Vector3 dir = facing * new Vector3(_input.x, 0, _input.y);
         _rb.linearVelocity = new Vector3(dir.x * speed, _rb.linearVelocity.y, dir.z * speed);
         if (jumping) UpdateJumpMomentum();

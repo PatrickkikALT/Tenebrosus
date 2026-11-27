@@ -1,14 +1,12 @@
 using UnityEngine;
 
-public class HauntableObject : MonoBehaviour
+public class HauntableObject : Carryable
 {
-    [SerializeField] private string displayName;
     [SerializeField] private GameObject uvPrints;
     [SerializeField] private Renderer[] renderers;
     [Tooltip("Short phrases the ghost spells on the Ouija board, revealed one by one. Five words or fewer read best.")]
     [SerializeField] [TextArea] private string[] memories;
 
-    public string DisplayName => displayName;
     public string[] Memories => memories;
     public Renderer[] Renderers => renderers;
 

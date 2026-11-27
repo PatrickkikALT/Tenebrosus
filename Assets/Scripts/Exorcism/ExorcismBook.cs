@@ -46,8 +46,6 @@ public class ExorcismBook : Carryable
     private RitualState _shownState;
     private int _shownStep = -1;
 
-    public string Hint => IsOpen ? $"{pages[_page].Title}  [Q] read  [Z/X] turn page" : $"{DisplayName}  [Z/X] open";
-
     private bool IsOpen => IsHeld && _page >= 0 && _page < pages.Length;
     private int ShownPage => Mathf.Clamp(_page, 0, pages.Length - 1);
 

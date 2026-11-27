@@ -29,6 +29,6 @@ Material:
     - _ShockWidth: 0.08
     - _ShockScale: 0.04
     - _ShockAberration: 0.012
-    m_Colors:
+    m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1

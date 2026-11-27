@@ -29,9 +29,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _DstBlend: 1
     - _Softness: 3
     - _Wisp: 0
-    - _DstBlend: 1
     m_Colors:
     - _Color: {r: 6, g: 2.5, b: 0.6, a: 1}
   m_BuildTextureStacks: []
